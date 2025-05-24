@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAF Clothings - Home</title>
+    <link rel="preload" href="hero-fashion1.webp" as="image">
+    <link rel="preload" href="hero-fashion2.webp" as="image">
+    <link rel="preload" href="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/chic_casual_set.jpeg" as="image">
+    <link rel="preload" href="hero-fashion4.webp" as="image">
+    <link rel="preload" href="hero-fashion5.webp" as="image">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #F5F5F5;
+            --bg-secondary: #FFFFFF;
+            --accent-primary: #2E3192;
+            --accent-secondary: #E0B973;
+            --highlight: #D4A017;
+            --text-primary: #1A1A2E;
+            --text-secondary: #666666;
+            --success: #28A745;
+            --error: #DC3545;
+            --footer-bg: #F8F9FA;
+            --glow-holo: rgba(46, 50, 146, 0.9);
+            --glow-neon: rgba(224, 185, 115, 0.8);
+        }
+        .dark-mode {
+            --bg-primary: #1A1A2E;
+            --bg-secondary: #2C2E3E;
+            --accent-primary: #2E3192;
+            --accent-secondary: #E0B973;
+            --highlight: #D4A017;
+            --text-primary: #F5F5F5;
+            --text-secondary: #B0B0B0;
+            --success: #28A745;
+            --error: #DC3545;
+            --footer-bg: #2C2E3E;
+            --glow-holo: rgba(46, 50, 146, 0.9);
+            --glow-neon: rgba(224, 185, 115, 0.8);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary), var(--highlight));
+            overflow: hidden;
+        }
+
+        .content-wrapper {
+            transition: filter 0.3s ease;
+        }
+        .content-wrapper.nav-open {
+            filter: blur(3px);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(46, 50, 146, 0.7));
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            box-shadow: 0 4px 25px var(--glow-holo);
+            transition: transform 0.3s;
+        }
+        header.shrink { transform: scale(0.98); }
+        .top-bar {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            text-shadow: 0 0 5px var(--highlight);
+        }
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+        }
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-secondary);
+            box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo);
+            position: relative;
+            animation: orbit-glow 10s linear infinite;
+            transition: box-shadow 0.3s ease; /* Transition only for box-shadow */
+        }
+        @keyframes orbit-glow {
+            0% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
+            50% { box-shadow: 0 0 30px var(--glow-neon), 0 0 40px var(--glow-holo); }
+            100% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
+        }
+        /* Subtle hover effect without scaling */
+        .logo-img:hover {
+            box-shadow: 0 0 25px var(--glow-neon), 0 0 35px var(--glow-holo);
+        }
+        .search-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+            justify-content: flex-end;
+        }
+        .search-bar {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            border: 1px solid var(--accent-secondary);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+            transition: box-shadow 0.3s;
+        }
+        .search-bar input:focus {
+            box-shadow: 0 0 10px var(--accent-primary);
+            outline: none;
+        }
+        .search-bar::after {
+            content: '🔍';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        nav { display: flex; gap: 1.5rem; }
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.2rem 0;
+            transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+        }
+        @media (min-width: 769px) {
+            nav a::before {
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+                transition: width 0.4s ease;
+            }
+            nav a:hover::before {
+                width: 100%;
+            }
+            nav a:hover {
+                color: var(--highlight);
+                transform: scale(1.1);
+                text-shadow: 0 0 15px var(--accent-secondary);
+            }
+        }
+        .header-icons { display: flex; gap: 1rem; align-items: center; }
+        #dark-mode-toggle { cursor: pointer; font-size: 1.2rem; color: var(--text-primary); }
+        #dark-mode-toggle:hover { color: var(--accent-secondary); text-shadow: 0 0 10px var(--accent-secondary); }
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
+        .hamburger:hover { color: var(--accent-secondary); text-shadow: 0 0 10px var(--accent-secondary); }
+        .nav-header { display: none; }
+
+        .hero {
+            position: relative;
+            height: 700px;
+            overflow: hidden;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-primary), var(--highlight));
+            border-radius: 15px;
+            margin: 120px 2rem 3rem;
+            padding: 2rem 0;
+        }
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: left 0.5s ease, opacity 0.5s ease;
+        }
+        .hero-slide.active {
+            left: 0;
+            opacity: 1;
+        }
+        .hero-slide picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: zoomInOut 2s infinite alternate;
+            transition: transform 0.3s ease;
+        }
+        @keyframes zoomInOut {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFFFFF;
+            text-shadow: 0 0 15px var(--accent-secondary);
+            width: 90%;
+            max-width: 700px;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 10px var(--accent-secondary); }
+            50% { transform: scale(1.05); text-shadow: 0 0 20px var(--accent-secondary); }
+        }
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: slideUpFade 1s ease-in-out;
+            animation-fill-mode: both;
+        }
+        .hero-content button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
+            cursor: pointer;
+            border-radius: 30px;
+            box-shadow: 0 0 25px var(--accent-secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .hero-content button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 35px var(--accent-secondary);
+        }
+        @keyframes slideUpFade {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        main { padding: 2rem; }
+        .section {
+            margin: 4rem 0;
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(46, 50, 146, 0.2), rgba(224, 185, 115, 0.2));
+            opacity: 0.6;
+            z-index: -1;
+            animation: shimmer 5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .welcome h2, .design-philosophy h2, .trends-spotlight h2, .behind-scenes h2, .showroom-highlight h2, .customer-spotlight h2, .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--accent-primary);
+            text-shadow: 0 0 15px var(--accent-secondary);
+            margin-bottom: 1.5rem;
+        }
+        .welcome p, .design-philosophy p, .trends-spotlight p, .behind-scenes p, .showroom-highlight p, .cta-section p {
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease-in-out;
+            animation-fill-mode: both;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .trends-grid, .showroom-grid, .behind-scenes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .trend-card, .showroom-card, .behind-scenes-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .trend-card:hover, .showroom-card:hover, .behind-scenes-card:hover {
+            transform: translateY(-15px) rotate(2deg);
+            box-shadow: 0 0 40px var(--accent-secondary);
+        }
+        .trend-card::before, .showroom-card::before, .behind-scenes-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(224, 185, 115, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .trend-card:hover::before, .showroom-card:hover::before, .behind-scenes-card:hover::before {
+            opacity: 1;
+        }
+        .trend-card .image-wrapper, .showroom-card .image-wrapper, .behind-scenes-card .image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+        }
+        .trend-card img, .showroom-card img, .behind-scenes-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .trend-card:hover img, .showroom-card:hover img, .behind-scenes-card:hover img {
+            transform: scale(1.1) rotate(-2deg);
+        }
+        .trend-card h3, .showroom-card h3, .behind-scenes-card h3 {
+            font-size: 1.4rem;
+            margin: 1rem 0 0.5rem;
+            color: var(--accent-primary);
+            text-shadow: 0 0 10px var(--accent-secondary);
+        }
+        .trend-card p, .showroom-card p, .behind-scenes-card p { font-size: 1rem; }
+        .trend-card button, .showroom-card button, .behind-scenes-card button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 0 15px var(--accent-secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .trend-card button:hover, .showroom-card button:hover, .behind-scenes-card button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--accent-secondary);
+        }
+
+        .customer-spotlight .intro-text {
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease-in-out 0.3s;
+            animation-fill-mode: both;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 30px var(--accent-secondary);
+        }
+        .testimonial-card::before {
+            content: '“';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 5rem;
+            color: var(--accent-secondary);
+            opacity: 0.3;
+        }
+        .testimonial-card::after {
+            content: '”';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 5rem;
+            color: var(--accent-secondary);
+            opacity: 0.3;
+        }
+        .testimonial-card p {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+        .testimonial-card .author {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--highlight);
+            text-align: right;
+            text-shadow: 0 0 10px var(--accent-secondary);
+        }
+
+        .cta-section { text-align: center; padding: 3rem 0; }
+        .cta-section h2 { margin-bottom: 1rem; }
+        .cta-section p { margin-bottom: 2rem; }
+        .cta-section button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
+            cursor: pointer;
+            border-radius: 30px;
+            box-shadow: 0 0 25px var(--accent-secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cta-section button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 35px var(--accent-secondary);
+        }
+
+        footer {
+            background: var(--footer-bg);
+            padding: 3rem 1rem;
+            position: relative;
+            border-top: 5px solid var(--accent-secondary);
+            margin-top: 4rem;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-primary), var(--highlight));
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        footer p, footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        a:not(nav a):hover {
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px var(--accent-secondary);
+            transform: scale(1.05);
+        }
+        footer p i { margin-right: 0.5rem; color: var(--accent-primary); }
+        footer form { display: flex; flex-direction: column; gap: 0.5rem; }
+        footer input {
+            padding: 0.6rem;
+            border: 1px solid var(--accent-secondary);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transition: box-shadow 0.3s;
+        }
+        footer input:focus {
+            box-shadow: 0 0 15px var(--accent-secondary);
+            outline: none;
+        }
+        footer button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 0.6rem;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 15px var(--accent-secondary);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        footer button:hover {
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+            box-shadow: 0 0 25px var(--accent-secondary);
+        }
+        .form-message { text-align: center; margin-top: 0.5rem; }
+        .success { color: var(--success); text-shadow: 0 0 10px var(--success); }
+        .error { color: var(--error); text-shadow: 0 0 10px var(--error); }
+        .social-icons { display: flex; gap: 1.5rem; }
+        .social-icons a {
+            font-size: 2rem;
+            color: var(--text-secondary);
+            transition: transform 0.3s, color 0.3s, text-shadow 0.3s;
+        }
+        .social-icons a:hover {
+            color: var(--accent-secondary);
+            transform: scale(1.3);
+            text-shadow: 0 0 15px var(--accent-secondary);
+        }
+        .back-to-top {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+        .back-to-top a {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 0 15px var(--accent-secondary);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .back-to-top a:hover {
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+            box-shadow: 0 0 25px var(--accent-secondary);
+        }
+
+        @media (max-width: 1200px) {
+            .main-header { padding: 1rem 1.5rem; }
+            .logo { width: 50px; height: 50px; }
+            .search-bar { max-width: 350px; }
+            .hero { height: 600px; margin-top: 110px; }
+            .hero-content h1 { font-size: 3.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+            .hero-content button { padding: 1rem 2rem; font-size: 1.2rem; }
+            .trends-grid, .showroom-grid, .behind-scenes-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        }
+        @media (max-width: 1024px) {
+            .main-header { padding: 1rem; }
+            .logo { width: 45px; height: 45px; }
+            .search-bar { max-width: 300px; }
+            .hero { height: 500px; margin-top: 100px; }
+            .hero-content h1 { font-size: 3rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .hero-content button { padding: 0.9rem 1.8rem; font-size: 1.1rem; }
+            .trends-grid, .showroom-grid, .behind-scenes-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+            .testimonials-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+            .testimonial-card { padding: 2rem; }
+        }
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: row;
+                align-items: center;
+                padding: 0.5rem 1rem;
+                gap: 0.5rem;
+                flex-wrap: nowrap;
+            }
+            .logo { width: 40px; height: 40px; }
+            .logo-img:hover {
+                box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); /* Reset to default on mobile */
+            }
+            .search-nav {
+                flex: 1;
+                justify-content: space-between;
+                gap: 0.5rem;
+                align-items: center;
+            }
+            .search-bar {
+                max-width: 100%;
+                flex: 1;
+            }
+            .search-bar input {
+                padding: 0.4rem 1.5rem 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            nav {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 70%;
+                max-width: 280px;
+                height: 100vh;
+                background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+                padding: 2rem 1rem;
+                box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+                transition: left 0.3s ease;
+                z-index: 1001;
+                overflow-y: auto;
+            }
+            nav.active {
+                display: block;
+                left: 0;
+            }
+            .nav-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+            nav .nav-header h3 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #FFFFFF;
+                text-shadow: 0 0 10px var(--accent-secondary);
+            }
+            nav .close-nav {
+                font-size: 1.5rem;
+                color: #FFFFFF;
+                cursor: pointer;
+                transition: transform 0.3s, text-shadow 0.3s;
+            }
+            nav .close-nav:hover {
+                transform: rotate(90deg);
+                text-shadow: 0 0 10px var(--accent-secondary);
+            }
+            nav a {
+                display: block;
+                margin: 1.5rem 0;
+                font-size: 1.2rem;
+                color: #FFFFFF;
+                text-shadow: 0 0 5px var(--accent-secondary);
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.2);
+                transition: transform 0.3s, background 0.3s, text-shadow 0.3s;
+            }
+            nav a:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateX(10px);
+                text-shadow: 0 0 15px var(--accent-secondary);
+            }
+            .hamburger {
+                display: block;
+                flex-shrink: 0;
+            }
+            .header-icons {
+                gap: 0.5rem;
+                flex-shrink: 0;
+            }
+            #dark-mode-toggle { font-size: 1rem; }
+            .hero {
+                height: 400px;
+                margin: 120px 1rem 2rem;
+                padding: 1rem;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1rem; }
+            .hero-content button { padding: 0.8rem 1.5rem; font-size: 1rem; }
+            main { padding: 1rem; }
+            .section { padding: 1.5rem; margin: 2rem 0; }
+            .welcome h2, .design-philosophy h2, .trends-spotlight h2, .behind-scenes h2, .showroom-highlight h2, .customer-spotlight h2, .cta-section h2 {
+                font-size: 1.8rem;
+            }
+            .welcome p, .design-philosophy p, .trends-spotlight p, .behind-scenes p, .showroom-highlight p, .cta-section p {
+                font-size: 1rem;
+            }
+            .trends-grid, .showroom-grid, .behind-scenes-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .trend-card, .showroom-card, .behind-scenes-card {
+                padding: 1rem;
+            }
+            .trend-card h3, .showroom-card h3, .behind-scenes-card h3 {
+                font-size: 1.2rem;
+            }
+            .trend-card p, .showroom-card p, .behind-scenes-card p {
+                font-size: 0.9rem;
+            }
+            .trend-card button, .showroom-card button, .behind-scenes-card button {
+                padding: 0.6rem 1.2rem;
+                font-size: 1rem;
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .testimonial-card { padding: 1.5rem; }
+            .testimonial-card::before, .testimonial-card::after {
+                font-size: 3.5rem;
+            }
+            .testimonial-card p { font-size: 1rem; }
+            .testimonial-card .author { font-size: 0.9rem; }
+            .cta-section { padding: 2rem 0; }
+            .cta-section button { padding: 1rem 2rem; font-size: 1.1rem; }
+            footer { padding: 2rem 1rem; }
+            .footer-content { padding: 1rem; gap: 1.5rem; }
+            footer h3 { font-size: 1.2rem; }
+            footer p, footer a { font-size: 0.9rem; }
+            .social-icons a { font-size: 1.5rem; }
+            .back-to-top a { padding: 0.5rem 1rem; font-size: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .main-header {
+                padding: 0.5rem;
+                gap: 0.3rem;
+            }
+            .logo { width: 35px; height: 35px; }
+            .search-bar input {
+                font-size: 0.8rem;
+                padding: 0.3rem 1rem 0.3rem 0.6rem;
+            }
+            .hamburger { font-size: 1.2rem; }
+            .header-icons { gap: 0.3rem; }
+            #dark-mode-toggle { font-size: 0.9rem; }
+            .hero {
+                height: 300px;
+                margin: 110px 0.5rem 1.5rem;
+                padding: 0.5rem;
+            }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content p { font-size: 0.9rem; }
+            .hero-content button { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+            main { padding: 0.5rem; }
+            .section { padding: 1rem; margin: 1.5rem 0; }
+            .welcome h2, .design-philosophy h2, .trends-spotlight h2, .behind-scenes h2, .showroom-highlight h2, .customer-spotlight h2, .cta-section h2 {
+                font-size: 1.5rem;
+            }
+            .welcome p, .design-philosophy p, .trends-spotlight p, .behind-scenes p, .showroom-highlight p, .cta-section p {
+                font-size: 0.9rem;
+            }
+            .trends-grid, .showroom-grid, .behind-scenes-grid {
+                gap: 0.8rem;
+            }
+            .trend-card, .showroom-card, .behind-scenes-card {
+                padding: 0.8rem;
+            }
+            .trend-card h3, .showroom-card h3, .behind-scenes-card h3 {
+                font-size: 1rem;
+            }
+            .trend-card p, .showroom-card p, .behind-scenes-card p {
+                font-size: 0.8rem;
+            }
+            .trend-card button, .showroom-card button, .behind-scenes-card button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            .testimonials-grid { gap: 1rem; }
+            .testimonial-card { padding: 1.2rem; }
+            .testimonial-card::before, .testimonial-card::after {
+                font-size: 2.5rem;
+            }
+            .testimonial-card p { font-size: 0.9rem; }
+            .testimonial-card .author { font-size: 0.85rem; }
+            .cta-section { padding: 1.5rem 0; }
+            .cta-section button { padding: 0.8rem 1.5rem; font-size: 1rem; }
+            footer { padding: 1.5rem 0.5rem; }
+            .footer-content { padding: 0.5rem; gap: 1rem; }
+            footer h3 { font-size: 1.1rem; }
+            footer p, footer a { font-size: 0.8rem; }
+            .social-icons a { font-size: 1.2rem; }
+            .back-to-top a { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles" width="412" height="915"></canvas>
+    <div class="content-wrapper">
+        <header>
+            <div class="top-bar">✨ Discover Our Latest Collections in Lagos! ✨</div>
+            <div class="main-header">
+                <div class="logo">
+                    <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/i_want_a_perfect_logo_for_the.jpeg" alt="NAF Clothings Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/60';">
+                </div>
+                <div class="search-nav">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search our collections...">
+                    </div>
+                    <span class="hamburger">☰</span>
+                    <nav>
+                        <div class="nav-header">
+                            <h3>NAF Clothings</h3>
+                            <span class="close-nav">✖</span>
+                        </div>
+                        <a href="index.html" style="--nav-index: 1;">Home</a>
+                        <a href="about.html" style="--nav-index: 2;">About</a>
+                        <a href="showroom.html" style="--nav-index: 3;">Showroom</a>
+                        <a href="blog.html" style="--nav-index: 4;">Blog</a>
+                        <a href="contact.html" style="--nav-index: 5;">Contact</a>
+                    </nav>
+                </div>
+                <div class="header-icons">
+                    <span id="dark-mode-toggle">🌙</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-carousel">
+                    <div class="hero-slide active">
+                        <picture>
+                            <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/elegant_dress_collection.jpeg" type="image/webp">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/elegant_dress_collection.jpeg" alt="Elegant Dress Collection" width="1200" height="700">
+                        </picture>
+                    </div>
+                    <div class="hero-slide">
+                        <picture>
+                            <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/bold_suit_collection.jpeg" type="image/webp">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/bold_suit_collection.jpeg" alt="Bold Suit Collection" loading="lazy" width="1200" height="700">
+                        </picture>
+                    </div>
+                    <div class="hero-slide">
+                        <picture>
+                            <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/chic_casual_set.jpeg" type="image/webp">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/chic_casual_set.jpeg" alt="Casual Chic Collection" loading="lazy" width="1200" height="700">
+                        </picture>
+                    </div>
+                    <div class="hero-slide">
+                        <picture>
+                            <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/vibrant_gown_collection.jpeg" type="image/webp">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/vibrant_gown_collection.jpeg" alt="Vibrant Gown Collection" loading="lazy" width="1200" height="700">
+                        </picture>
+                    </div>
+                    <div class="hero-slide">
+                        <picture>
+                            <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/luxury_outfit_collection.jpeg" type="image/webp">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/luxury_outfit_collection.jpeg" alt="Luxury Outfit Collection" loading="lazy" width="1200" height="700">
+                        </picture>
+                    </div>
+                </div>
+                <div class="hero-content">
+                    <h1>Elevate Your Style</h1>
+                    <p>Discover NAF Clothings’ exclusive collections crafted with elegance, boldness, and innovation in the heart of Lagos. Immerse yourself in a world where fashion meets artistry, designed to turn heads and inspire confidence.</p>
+                    <button onclick="window.location.href='showroom.html'">Explore Showroom</button>
+                </div>
+            </section>
+            <section class="welcome section">
+                <h2>Welcome to NAF Clothings</h2>
+                <p>Based in Lagos, NAF Clothings blends tradition with modern style, creating timeless pieces that celebrate your individuality. Discover our curated collections and let your wardrobe tell your story!</p>
+            </section>
+            <section class="design-philosophy section">
+                <h2>Our Design Philosophy</h2>
+                <p>At NAF Clothings, we believe fashion is an expression of identity. Our designs are inspired by the rich cultural heritage of Nigeria, infused with contemporary trends to create pieces that are both timeless and bold.</p>
+            </section>
+            <section class="trends-spotlight section">
+                <h2>Fashion Trends Spotlight</h2>
+                <p>Stay ahead of the curve with these trending styles curated by our design team. From vibrant prints to minimalist elegance, here’s what’s defining fashion in 2025.</p>
+                <div class="trends-grid">
+                    <div class="trend-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/bold_prints.jpeg" alt="Bold Prints" loading="lazy">
+                        </div>
+                        <h3>Bold Prints</h3>
+                        <p>Make a statement with eye-catching patterns that scream confidence.</p>
+                        <button onclick="window.location.href='showroom.html'">Explore Trends</button>
+                    </div>
+                    <div class="trend-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/monochrome_elegance.jpeg" alt="Monochrome Elegance" loading="lazy">
+                        </div>
+                        <h3>Monochrome Elegance</h3>
+                        <p>Timeless sophistication with sleek, single-tone designs.</p>
+                        <button onclick="window.location.href='showroom.html'">Explore Trends</button>
+                    </div>
+                    <div class="trend-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/sustainable_fabrics.jpeg" alt="Sustainable Fabrics" loading="lazy">
+                        </div>
+                        <h3>Sustainable Fabrics</h3>
+                        <p>Eco-friendly fashion that looks good and feels great.</p>
+                        <button onclick="window.location.href='showroom.html'">Explore Trends</button>
+                    </div>
+                </div>
+            </section>
+            <section class="behind-scenes section">
+                <h2>Behind the Scenes</h2>
+                <p>Get a glimpse into our creative process, from sketches to runway-ready designs. See how we bring our collections to life with passion and precision.</p>
+                <div class="behind-scenes-grid">
+                    <div class="behind-scenes-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/sketching_designs.jpeg" alt="Sketching Designs" loading="lazy">
+                        </div>
+                        <h3>Sketching Designs</h3>
+                        <p>Every piece starts with a vision captured on paper by our talented designers.</p>
+                        <button onclick="window.location.href='blog.html'">Learn More</button>
+                    </div>
+                    <div class="behind-scenes-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/fabric_selection.jpeg" alt="Fabric Selection" loading="lazy">
+                        </div>
+                        <h3>Fabric Selection</h3>
+                        <p>We handpick premium fabrics to ensure quality and comfort in every piece.</p>
+                        <button onclick="window.location.href='blog.html'">Learn More</button>
+                    </div>
+                    <div class="behind-scenes-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/runway_prep.jpeg" alt="Runway Prep" loading="lazy">
+                        </div>
+                        <h3>Runway Prep</h3>
+                        <p>Behind-the-scenes action as we prepare for our latest fashion showcase.</p>
+                        <button onclick="window.location.href='blog.html'">Learn More</button>
+                    </div>
+                </div>
+            </section>
+            <section class="showroom-highlight section">
+                <h2>Showroom Highlights</h2>
+                <p>Step into our virtual showroom and explore a curated selection of stunning designs that define the essence of NAF Clothings. Each piece blends tradition with modern flair to elevate your wardrobe.</p>
+                <div class="showroom-grid">
+                    <div class="showroom-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/aso_oke_elegance.jpeg" alt="Aso Oke Elegance" loading="lazy">
+                        </div>
+                        <h3>Aso Oke Elegance</h3>
+                        <p>A handwoven masterpiece with vibrant patterns, perfect for cultural celebrations.</p>
+                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                    </div>
+                    <div class="showroom-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/tailored_teal_suit.jpeg" alt="Tailored Teal Suit" loading="lazy">
+                        </div>
+                        <h3>Tailored Teal Suit</h3>
+                        <p>A sleek, modern suit with a pop of color for the confident trendsetter.</p>
+                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                    </div>
+                    <div class="showroom-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/chic_casual_set.jpeg" alt="Chic Casual Set" loading="lazy">
+                        </div>
+                        <h3>Chic Casual Set</h3>
+                        <p>Effortless style with a blend of comfort and bold design elements.</p>
+                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                    </div>
+                    <div class="showroom-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/vibrant_gown.jpeg" alt="Vibrant Gown" loading="lazy">
+                        </div>
+                        <h3>Vibrant Gown</h3>
+                        <p>A flowing gown with intricate beadwork, ideal for evening elegance.</p>
+                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                    </div>
+                    <div class="showroom-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/statement_jacket.jpeg" alt="Statement Jacket" loading="lazy">
+                        </div>
+                        <h3>Statement Jacket</h3>
+                        <p>A bold jacket with unique textures, perfect for making an impression.</p>
+                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                    </div>
+                    <div class="showroom-card">
+                        <div class="image-wrapper">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/two_piece_skirt_set.jpeg" alt="Two-Piece Skirt Set" loading="lazy">
+                        </div>
+                        <h3>Two-Piece Skirt Set</h3>
+                        <p>A versatile set with a modern twist, blending tradition and trend.</p>
+                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                    </div>
+                </div>
+            </section>
+            <section class="customer-spotlight section">
+                <h2>Our Fashion Community</h2>
+                <p class="intro-text">Hear from our vibrant community of style enthusiasts who bring NAF Clothings to life with their unique flair. Join us on our Blog or Contact page to connect and inspire!</p>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p>“The Aso Oke Elegance dress transformed my event into a cultural spectacle—unmatched quality and design!”</p>
+                        <p class="author"><b>— Funmi, 28</b></p>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>“The Tailored Teal Suit gave me the confidence to shine at my conference. NAF Clothings is my go-to!”</p>
+                        <p class="author"><b>— Chidi, 35</b></p>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>“Wearing the Vibrant Gown made me feel like a star—every detail is perfection!”</p>
+                        <p class="author"><b>— Amina, 30</b></p>
+                    </div>
+                </div>
+            </section>
+            <section class="cta-section section">
+                <h2>Define Your Look</h2>
+                <p>Step into the world of NAF Clothings and discover pieces that reflect your unique style. Explore our showroom today and let your fashion journey begin with a bold statement!</p>
+                <button onclick="window.location.href='showroom.html'">Explore Now</button>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>NAF Clothings</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 25 Fashion Avenue, Lagos, Nigeria</p>
+                    <p><i class="fas fa-globe"></i> Nationwide Shipping</p>
+                    <p><i class="fas fa-phone-alt"></i> +234 810 967 4683</p>
+                    <p><i class="fas fa-envelope"></i> style@nafclothings.ng</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9am-6pm, Sat: 10am-4pm (WAT)</p>
+                </div>
+                <div>
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="about.html">About</a></p>
+                    <p><a href="showroom.html">Showroom</a></p>
+                    <p><a href="blog.html">Blog</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                </div>
+                <div>
+                    <h3>Explore More</h3>
+                    <p><a href="blog.html">Style Tips</a></p>
+                    <p><a href="showroom.html">Lookbook</a></p>
+                    <p><a href="blog.html">Customer Stories</a></p>
+                    <p><a href="#newsletter">Newsletter Signup</a></p>
+                </div>
+                <div>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://tiktok.com/@nafclothings_ng" class="fab fa-tiktok"></a>
+                        <a href="https://twitter.com/nafclothings_ng" class="fab fa-twitter"></a>
+                        <a href="https://facebook.com/nafclothings_ng" class="fab fa-facebook-f"></a>
+                        <a href="https://instagram.com/nafclothings_ng" class="fab fa-instagram"></a>
+                        <a href="https://wa.me/+234 810 967 4683" class="fab fa-whatsapp"></a>
+                    </div>
+                    <h3 style="margin-top: 1.5rem;">Newsletter</h3>
+                    <form id="newsletter-form">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <button type="submit">Join Our Style Tribe!</button>
+                        <div class="form-message"></div>
+                    </form>
+                </div>
+            </div>
+            <div class="back-to-top">
+                <a href="#">Back to Top ⬆️</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particlesArray = [];
+        const numberOfParticles = 150;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = `hsla(${Math.random() * 360}, 70%, 50%, 0.8)`;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() * 0.1 - 0.05;
+            }
+            update() {
+                this.x += this.speedX + Math.cos(this.angle) * 0.5;
+                this.y += this.speedY + Math.sin(this.angle) * 0.5;
+                this.angle += this.spin;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                this.size = Math.max(this.size - 0.01, 2);
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            particlesArray.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(224, 185, 115, ${1 - distance / 100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) slide.classList.add('active');
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        showSlide(currentSlide);
+        setInterval(nextSlide, 5000);
+
+        const hero = document.querySelector('.hero');
+        hero.addEventListener('mousemove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const tiltX = (centerY - y) / centerY * 15;
+            const tiltY = (x - centerX) / centerX * 15;
+            hero.querySelectorAll('.hero-slide img').forEach(img => {
+                img.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.1)`;
+            });
+        });
+        hero.addEventListener('mouseleave', () => {
+            hero.querySelectorAll('.hero-slide img').forEach(img => {
+                img.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').classList.toggle('shrink', window.scrollY > 50);
+        });
+
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+
+        const nav = document.querySelector('nav');
+        const hamburger = document.querySelector('.hamburger');
+        const closeNav = document.querySelector('.close-nav');
+        const contentWrapper = document.querySelector('.content-wrapper');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.add('active');
+            contentWrapper.classList.add('nav-open');
+        });
+
+        closeNav.addEventListener('click', () => {
+            nav.classList.remove('active');
+            contentWrapper.classList.remove('nav-open');
+        });
+
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                contentWrapper.classList.remove('nav-open');
+            });
+        });
+
+        document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            document.getElementById('dark-mode-toggle').textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        });
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('dark-mode-toggle').textContent = '☀️';
+        }
+
+        document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formMessage = form.querySelector('.form-message');
+            formMessage.innerHTML = '<p class="success">Thanks for joining our Style Tribe!</p>';
+            form.reset();
+            setTimeout(() => formMessage.innerHTML = '', 3000);
+        });
+    </script>
+</body>
+</html>

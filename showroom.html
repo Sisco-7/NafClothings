@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAF Clothings - Showroom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #F5F5F5;
+            --bg-secondary: #FFFFFF;
+            --accent-primary: #2E3192;
+            --accent-secondary: #E0B973;
+            --highlight: #D4A017;
+            --text-primary: #1A1A2E;
+            --text-secondary: #666666;
+            --success: #28A745;
+            --error: #DC3545;
+            --footer-bg: #F8F9FA;
+            --glow-holo: rgba(46, 50, 146, 0.9);
+            --glow-neon: rgba(224, 185, 115, 0.8);
+        }
+        .dark-mode {
+            --bg-primary: #1A1A2E;
+            --bg-secondary: #2C2E3E;
+            --accent-primary: #2E3192;
+            --accent-secondary: #E0B973;
+            --highlight: #D4A017;
+            --text-primary: #F5F5F5;
+            --text-secondary: #B0B0B0;
+            --success: #28A745;
+            --error: #DC3545;
+            --footer-bg: #2C2E3E;
+            --glow-holo: rgba(46, 50, 146, 0.9);
+            --glow-neon: rgba(224, 185, 115, 0.8);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary), var(--highlight));
+            overflow: hidden;
+        }
+
+        .content-wrapper {
+            transition: filter 0.3s ease;
+        }
+        .content-wrapper.nav-open {
+            filter: blur(3px);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(46, 50, 146, 0.7));
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            box-shadow: 0 4px 25px var(--glow-holo);
+            transition: transform 0.3s;
+        }
+        header.shrink { transform: scale(0.98); }
+        .top-bar {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            text-shadow: 0 0 5px var(--highlight);
+        }
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+        }
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-secondary);
+            box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo);
+            animation: orbit-glow 10s linear infinite;
+            transition: box-shadow 0.3s ease;
+        }
+        @keyframes orbit-glow {
+            0% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
+            50% { box-shadow: 0 0 30px var(--glow-neon), 0 0 40px var(--glow-holo); }
+            100% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
+        }
+        .logo-img:hover {
+            box-shadow: 0 0 25px var(--glow-neon), 0 0 35px var(--glow-holo);
+        }
+        .search-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+            justify-content: flex-end;
+        }
+        .search-bar {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            border: 1px solid var(--accent-secondary);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+            transition: box-shadow 0.3s;
+        }
+        .search-bar input:focus {
+            box-shadow: 0 0 10px var(--accent-primary);
+            outline: none;
+        }
+        .search-bar::after {
+            content: '🔍';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        nav { display: flex; gap: 1.5rem; }
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.2rem 0;
+            transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+        }
+        @media (min-width: 769px) {
+            nav a::before {
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+                transition: width 0.4s ease;
+            }
+            nav a:hover::before {
+                width: 100%;
+            }
+            nav a:hover {
+                color: var(--highlight);
+                transform: scale(1.1);
+                text-shadow: 0 0 15px var(--accent-secondary);
+            }
+        }
+        .header-icons { display: flex; gap: 1rem; align-items: center; }
+        #dark-mode-toggle { cursor: pointer; font-size: 1.2rem; color: var(--text-primary); }
+        #dark-mode-toggle:hover { color: var(--accent-secondary); text-shadow: 0 0 10px var(--accent-secondary); }
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
+        .hamburger:hover { color: var(--accent-secondary); text-shadow: 0 0 10px var(--accent-secondary); }
+        .nav-header { display: none; }
+
+        .hero {
+            position: relative;
+            height: 700px;
+            overflow: hidden;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-primary), var(--highlight));
+            border-radius: 15px;
+            margin: 120px 2rem 3rem;
+            padding: 2rem 0;
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFFFFF;
+            text-shadow: 0 0 15px var(--accent-secondary);
+            width: 90%;
+            max-width: 700px;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 10px var(--accent-secondary); }
+            50% { transform: scale(1.05); text-shadow: 0 0 20px var(--accent-secondary); }
+        }
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: slideUpFade 1s ease-in-out;
+            animation-fill-mode: both;
+        }
+        .hero-content button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
+            cursor: pointer;
+            border-radius: 30px;
+            box-shadow: 0 0 25px var(--accent-secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .hero-content button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 35px var(--accent-secondary);
+        }
+        @keyframes slideUpFade {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        main { padding: 2rem; }
+        .section {
+            margin: 4rem 0;
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(46, 50, 146, 0.2), rgba(224, 185, 115, 0.2));
+            opacity: 0.6;
+            z-index: -1;
+            animation: shimmer 5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .showroom-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--accent-primary);
+            text-shadow: 0 0 15px var(--accent-secondary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .showroom-section p {
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease-in-out;
+            animation-fill-mode: both;
+            text-align: center;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .collection-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .collection-card:hover {
+            transform: translateY(-15px) rotate(2deg);
+            box-shadow: 0 0 40px var(--accent-secondary);
+        }
+        .collection-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(224, 185, 115, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 0;
+        }
+        .collection-card:hover::before {
+            opacity: 1;
+        }
+        .collection-card .image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            z-index: 1;
+        }
+        .collection-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .collection-card:hover img {
+            transform: scale(1.1);
+        }
+        .collection-card h3 {
+            font-size: 1.4rem;
+            margin: 1rem 0 0.5rem;
+            color: var(--accent-primary);
+            text-shadow: 0 0 10px var(--accent-secondary);
+            z-index: 1;
+        }
+        .collection-card .meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            z-index: 1;
+        }
+        .collection-card p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            z-index: 1;
+        }
+        .collection-card button.view-details {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 0 15px var(--accent-secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 100;
+            pointer-events: auto;
+        }
+        .collection-card button.view-details:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--accent-secondary);
+        }
+        #collection-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 0 40px var(--accent-secondary);
+            z-index: 2000;
+        }
+        #collection-modal.active {
+            display: block;
+        }
+        #collection-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent-primary);
+            text-shadow: 0 0 10px var(--accent-secondary);
+            margin-bottom: 1rem;
+        }
+        #collection-modal img {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 1rem;
+            display: block;
+            border-radius: 10px;
+        }
+        #collection-modal .meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        #collection-modal .content {
+            margin: 1rem 0;
+        }
+        #collection-modal .design-notes {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(224, 185, 115, 0.1);
+            border-radius: 10px;
+        }
+        #collection-modal .design-notes h3 {
+            font-size: 1.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        #collection-modal .design-notes ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        #collection-modal .design-notes li {
+            margin-bottom: 0.3rem;
+        }
+        #collection-modal .more-details {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(46, 50, 146, 0.1);
+            border-radius: 10px;
+        }
+        #collection-modal .more-details h3 {
+            font-size: 1.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        #collection-modal .more-details p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        #collection-modal .more-details p strong {
+            color: var(--accent-secondary);
+        }
+        #collection-modal .close-modal {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            margin: 1rem auto 0;
+            box-shadow: 0 0 15px var(--accent-secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        #collection-modal .close-modal:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--accent-secondary);
+        }
+        .pagination {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .pagination a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .pagination a:hover, .pagination a.active {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: var(--footer-bg);
+            padding: 3rem 1rem;
+            position: relative;
+            border-top: 5px solid var(--accent-secondary);
+            margin-top: 4rem;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-primary), var(--highlight));
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        footer p, footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        a:not(nav a):hover {
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px var(--accent-secondary);
+            transform: scale(1.05);
+        }
+        footer p i { margin-right: 0.5rem; color: var(--accent-primary); }
+        footer form { display: flex; flex-direction: column; gap: 0.5rem; }
+        footer input {
+            padding: 0.6rem;
+            border: 1px solid var(--accent-secondary);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transition: box-shadow 0.3s;
+        }
+        footer input:focus {
+            box-shadow: 0 0 15px var(--accent-secondary);
+            outline: none;
+        }
+        footer button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 0.6rem;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 15px var(--accent-secondary);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        footer button:hover {
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+            box-shadow: 0 0 25px var(--accent-secondary);
+        }
+        .form-message { text-align: center; margin-top: 0.5rem; }
+        .success { color: var(--success); text-shadow: 0 0 10px var(--success); }
+        .error { color: var(--error); text-shadow: 0 0 10px var(--error); }
+        .social-icons { display: flex; gap: 1.5rem; }
+        .social-icons a {
+            font-size: 2rem;
+            color: var(--text-secondary);
+            transition: transform 0.3s, color 0.3s, text-shadow 0.3s;
+        }
+        .social-icons a:hover {
+            color: var(--accent-secondary);
+            transform: scale(1.3);
+            text-shadow: 0 0 15px var(--accent-secondary);
+        }
+        .back-to-top {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+        .back-to-top a {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 0 15px var(--accent-secondary);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .back-to-top a:hover {
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+            box-shadow: 0 0 25px var(--accent-secondary);
+        }
+
+        @media (max-width: 1200px) {
+            .main-header { padding: 1rem 1.5rem; }
+            .logo { width: 50px; height: 50px; }
+            .search-bar { max-width: 350px; }
+            .hero { height: 600px; margin-top: 110px; }
+            .hero-content h1 { font-size: 3.5rem; }
+            .hero-content p { font-size: 1.2rem; }
+            .hero-content button { padding: 1rem 2rem; font-size: 1.2rem; }
+            .collection-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .collection-card .image-wrapper { height: 180px; }
+        }
+        @media (max-width: 1024px) {
+            .main-header { padding: 1rem; }
+            .logo { width: 45px; height: 45px; }
+            .search-bar { max-width: 300px; }
+            .hero { height: 500px; margin-top: 100px; }
+            .hero-content h1 { font-size: 3rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .hero-content button { padding: 0.9rem 1.8rem; font-size: 1.1rem; }
+            .collection-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+            .collection-card .image-wrapper { height: 160px; }
+        }
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: row;
+                align-items: center;
+                padding: 0.5rem 1rem;
+                gap: 0.5rem;
+                flex-wrap: nowrap;
+            }
+            .logo { width: 40px; height: 40px; }
+            .logo-img:hover {
+                box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo);
+            }
+            .search-nav {
+                flex: 1;
+                justify-content: space-between;
+                gap: 0.5rem;
+                align-items: center;
+            }
+            .search-bar {
+                max-width: 100%;
+                flex: 1;
+            }
+            .search-bar input {
+                padding: 0.4rem 1.5rem 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            nav {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 70%;
+                max-width: 280px;
+                height: 100vh;
+                background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+                padding: 2rem 1rem;
+                box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+                transition: left 0.3s ease;
+                z-index: 1001;
+                overflow-y: auto;
+            }
+            nav.active {
+                display: block;
+                left: 0;
+            }
+            .nav-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+            nav .nav-header h3 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #FFFFFF;
+                text-shadow: 0 0 10px var(--accent-secondary);
+            }
+            nav .close-nav {
+                font-size: 1.5rem;
+                color: #FFFFFF;
+                cursor: pointer;
+                transition: transform 0.3s, text-shadow 0.3s;
+            }
+            nav .close-nav:hover {
+                transform: rotate(90deg);
+                text-shadow: 0 0 10px var(--accent-secondary);
+            }
+            nav a {
+                display: block;
+                margin: 1.5rem 0;
+                font-size: 1.2rem;
+                color: #FFFFFF;
+                text-shadow: 0 0 5px var(--accent-secondary);
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.2);
+                transition: transform 0.3s, background 0.3s, text-shadow 0.3s;
+            }
+            nav a:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateX(10px);
+                text-shadow: 0 0 15px var(--accent-secondary);
+            }
+            .hamburger {
+                display: block;
+                flex-shrink: 0;
+            }
+            .header-icons {
+                gap: 0.5rem;
+                flex-shrink: 0;
+            }
+            #dark-mode-toggle { font-size: 1rem; }
+            .hero {
+                height: 400px;
+                margin: 120px 1rem 2rem;
+                padding: 1rem;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1rem; }
+            .hero-content button { padding: 0.8rem 1.5rem; font-size: 1rem; }
+            main { padding: 1rem; }
+            .section { padding: 1.5rem; margin: 2rem 0; }
+            .showroom-section h2 {
+                font-size: 1.8rem;
+            }
+            .showroom-section p {
+                font-size: 1rem;
+            }
+            .collection-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .collection-card .image-wrapper {
+                height: 150px;
+            }
+            .collection-card h3 {
+                font-size: 1.2rem;
+            }
+            .collection-card p, .collection-card .meta {
+                font-size: 0.9rem;
+            }
+            .collection-card button {
+                padding: 0.6rem 1.2rem;
+                font-size: 1rem;
+            }
+            #collection-modal { width: 100%; height: 100%; top: 0; left: 0; transform: none; border-radius: 0; }
+            footer { padding: 2rem 1rem; }
+            .footer-content { padding: 1rem; gap: 1.5rem; }
+            footer h3 { font-size: 1.2rem; }
+            footer p, footer a { font-size: 0.9rem; }
+            .social-icons a { font-size: 1.5rem; }
+            .back-to-top a { padding: 0.5rem 1rem; font-size: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .main-header {
+                padding: 0.5rem;
+                gap: 0.3rem;
+            }
+            .logo { width: 35px; height: 35px; }
+            .search-bar input {
+                font-size: 0.8rem;
+                padding: 0.3rem 1rem 0.3rem 0.6rem;
+            }
+            .hamburger { font-size: 1.2rem; }
+            .header-icons { gap: 0.3rem; }
+            #dark-mode-toggle { font-size: 0.9rem; }
+            .hero {
+                height: 300px;
+                margin: 110px 0.5rem 1.5rem;
+                padding: 0.5rem;
+            }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content p { font-size: 0.9rem; }
+            .hero-content button { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+            main { padding: 0.5rem; }
+            .section { padding: 1rem; margin: 1.5rem 0; }
+            .showroom-section h2 {
+                font-size: 1.5rem;
+            }
+            .showroom-section p {
+                font-size: 0.9rem;
+            }
+            .collection-grid { gap: 0.8rem; }
+            .collection-card {
+                padding: 0.8rem;
+            }
+            .collection-card .image-wrapper {
+                height: 120px;
+            }
+            .collection-card h3 {
+                font-size: 1rem;
+            }
+            .collection-card p, .collection-card .meta {
+                font-size: 0.8rem;
+            }
+            .collection-card button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            footer { padding: 1.5rem 0.5rem; }
+            .footer-content { padding: 0.5rem; gap: 1rem; }
+            footer h3 { font-size: 1.1rem; }
+            footer p, footer a { font-size: 0.8rem; }
+            .social-icons a { font-size: 1.2rem; }
+            .back-to-top a { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles" width="412" height="915"></canvas>
+    <div class="content-wrapper">
+        <header>
+            <div class="top-bar">✨ Discover NAF Clothings Elegance! ✨</div>
+            <div class="main-header">
+                <div class="logo">
+                    <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/i_want_a_perfect_logo_for_the.jpeg" alt="NAF Clothings Logo" class="logo-img">
+                </div>
+                <div class="search-nav">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search collections..." id="collection-search">
+                    </div>
+                    <span class="hamburger">☰</span>
+                    <nav>
+                        <div class="nav-header">
+                            <h3>NAF Clothings</h3>
+                            <span class="close-nav">✖</span>
+                        </div>
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About</a>
+                        <a href="showroom.html">Showroom</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="contact.html">Contact</a>
+                    </nav>
+                </div>
+                <div class="header-icons">
+                    <span id="dark-mode-toggle">🌙</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>NAF Clothings Showroom</h1>
+                    <p>Explore our exquisite collection of traditional and modern attire.</p>
+                    <button onclick="window.location.href='#showroom-section'">Shop Now</button>
+                </div>
+            </section>
+
+            <section class="showroom-section section" id="showroom-section">
+                <h2>Our Collections</h2>
+                <p>Discover the finest designs crafted with passion and elegance.</p>
+                <div class="collection-grid" id="collection-grid"></div>
+                <div class="pagination" id="pagination"></div>
+            </section>
+        </main>
+
+        <div id="collection-modal">
+            <div id="collection-content"></div>
+            <button class="close-modal">Close</button>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>NAF Clothings</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 25 Fashion Avenue, Lagos, Nigeria</p>
+                    <p><i class="fas fa-globe"></i> Worldwide Shipping</p>
+                    <p><i class="fas fa-phone-alt"></i> +234 810 967 4683</p>
+                    <p><i class="fas fa-envelope"></i> style@nafclothings.ng</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9am-6pm, Sat: 10am-4pm (WAT)</p>
+                </div>
+                <div>
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="about.html">About</a></p>
+                    <p><a href="showroom.html">Showroom</a></p>
+                    <p><a href="blog.html">Blog</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                </div>
+                <div>
+                    <h3>Explore More</h3>
+                    <p><a href="showroom.html">Collections</a></p>
+                    <p><a href="blog.html">Style Tips</a></p>
+                    <p><a href="blog.html">Customer Stories</a></p>
+                    <p><a href="#newsletter">Newsletter Signup</a></p>
+                </div>
+                <div>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://tiktok.com/@nafclothings_ng" class="fab fa-tiktok"></a>
+                        <a href="https://twitter.com/nafclothings_ng" class="fab fa-twitter"></a>
+                        <a href="https://facebook.com/nafclothings_ng" class="fab fa-facebook-f"></a>
+                        <a href="https://instagram.com/nafclothings_ng" class="fab fa-instagram"></a>
+                        <a href="https://wa.me/+234 810 967 4683" class="fab fa-whatsapp"></a>
+                    </div>
+                    <h3 style="margin-top: 1.5rem;">Newsletter</h3>
+                    <form id="newsletter-form">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <button type="submit">Join Our Style Tribe!</button>
+                        <div class="form-message"></div>
+                    </form>
+                </div>
+            </div>
+            <div class="back-to-top">
+                <a href="#">Back to Top ⬆️</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particlesArray = [];
+        const numberOfParticles = 150;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = `hsla(${Math.random() * 360}, 70%, 50%, 0.8)`;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() * 0.1 - 0.05;
+            }
+            update() {
+                this.x += this.speedX + Math.cos(this.angle) * 0.5;
+                this.y += this.speedY + Math.sin(this.angle) * 0.5;
+                this.angle += this.spin;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                this.size = Math.max(this.size - 0.01, 2);
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            particlesArray.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(224, 185, 115, ${1 - distance / 100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        const collections = {
+            'kaftan1': {
+                title: 'Kaftan Elegance - Midnight Blue',
+                image: 'https://via.placeholder.com/300',
+                description: 'Flowing kaftan with intricate embroidery in midnight blue.',
+                price: '₦15,000',
+                details: 'Crafted from premium silk, perfect for special occasions.',
+                designNotes: [
+                    'Deep midnight blue hue for a regal look.',
+                    'Intricate embroidery along the neckline and hem.',
+                    'Lightweight silk fabric for effortless flow.'
+                ],
+                moreDetails: {
+                    material: '100% Premium Silk',
+                    sizing: 'Available in S, M, L, XL; fits true to size',
+                    care: 'Dry clean only to preserve embroidery and fabric sheen',
+                    styling: 'Pair with gold accessories and matching cap for a complete look'
+                }
+            },
+            'kaftan2': {
+                title: 'Kaftan Elegance - Gold Accent',
+                image: 'https://via.placeholder.com/300',
+                description: 'Elegant kaftan with gold embroidery.',
+                price: '₦16,500',
+                details: 'Silk fabric with gold accents, ideal for festive events.',
+                designNotes: [
+                    'Rich gold embroidery on a cream base.',
+                    'Subtle sheen from silk fabric.',
+                    'Designed for festive elegance.'
+                ],
+                moreDetails: {
+                    material: '90% Silk, 10% Cotton',
+                    sizing: 'Available in M, L, XL; slightly loose fit',
+                    care: 'Dry clean recommended; avoid harsh detergents',
+                    styling: 'Ideal with traditional jewelry and leather sandals'
+                }
+            },
+            'kaftan3': {
+                title: 'Kaftan Elegance - Emerald Glow',
+                image: 'https://via.placeholder.com/300',
+                description: 'Vibrant emerald kaftan with subtle patterns.',
+                price: '₦14,000',
+                details: 'Lightweight fabric, perfect for warm weather.',
+                designNotes: [
+                    'Bold emerald green for a striking appearance.',
+                    'Subtle geometric patterns on sleeves.',
+                    'Breathable fabric for comfort.'
+                ],
+                moreDetails: {
+                    material: '80% Cotton, 20% Silk',
+                    sizing: 'Available in S, M, L; relaxed fit',
+                    care: 'Hand wash in cold water; air dry to maintain color',
+                    styling: 'Pair with white trousers for a fresh look'
+                }
+            },
+            'kaftan4': {
+                title: 'Kaftan Elegance - Cream Classic',
+                image: 'https://via.placeholder.com/300',
+                description: 'Classic cream kaftan with minimal design.',
+                price: '₦13,500',
+                details: 'Cotton-silk blend for a timeless look.',
+                designNotes: [
+                    'Clean cream color for versatility.',
+                    'Minimalist design with a focus on fabric texture.',
+                    'Cotton-silk blend for comfort and elegance.'
+                ],
+                moreDetails: {
+                    material: '70% Cotton, 30% Silk',
+                    sizing: 'Available in S, M, L, XL; true to size',
+                    care: 'Machine wash on gentle cycle; iron on low heat',
+                    styling: 'Style with a colorful cap for a pop of contrast'
+                }
+            },
+            'agbada1': {
+                title: 'Agbada Royal - Sapphire Majesty',
+                image: 'https://via.placeholder.com/300',
+                description: 'Regal agbada with bold sapphire patterns.',
+                price: '₦25,000',
+                details: 'Made with luxurious brocade, ideal for celebrations.',
+                designNotes: [
+                    'Sapphire blue with bold geometric patterns.',
+                    'Heavy brocade fabric for a royal feel.',
+                    'Wide sleeves for dramatic flair.'
+                ],
+                moreDetails: {
+                    material: '100% Brocade (Polyester Blend)',
+                    sizing: 'Available in M, L, XL; loose fit for traditional style',
+                    care: 'Dry clean only to maintain fabric structure',
+                    styling: 'Complete the look with a matching cap and staff'
+                }
+            },
+            'agbada2': {
+                title: 'Agbada Royal - Crimson Pride',
+                image: 'https://via.placeholder.com/300',
+                description: 'Crimson agbada with intricate stitching.',
+                price: '₦26,000',
+                details: 'Premium fabric for a striking appearance.',
+                designNotes: [
+                    'Deep crimson color for a powerful statement.',
+                    'Intricate stitching along the edges.',
+                    'Structured fit for a commanding presence.'
+                ],
+                moreDetails: {
+                    material: '95% Brocade, 5% Cotton',
+                    sizing: 'Available in L, XL, XXL; true to size',
+                    care: 'Dry clean to preserve stitching and color',
+                    styling: 'Pair with gold accessories for a regal touch'
+                }
+            },
+            'agbada3': {
+                title: 'Agbada Royal - Ebony Luxe',
+                image: 'https://via.placeholder.com/300',
+                description: 'Ebony agbada with gold embroidery.',
+                price: '₦24,500',
+                details: 'Crafted for royalty, perfect for ceremonies.',
+                designNotes: [
+                    'Ebony black with shimmering gold embroidery.',
+                    'Luxurious brocade for a premium feel.',
+                    'Tailored for ceremonial elegance.'
+                ],
+                moreDetails: {
+                    material: '100% Brocade',
+                    sizing: 'Available in M, L, XL; loose fit',
+                    care: 'Dry clean only; avoid direct sunlight for storage',
+                    styling: 'Wear with a beaded cap for a complete look'
+                }
+            },
+            'agbada4': {
+                title: 'Agbada Royal - Ivory Elegance',
+                image: 'https://via.placeholder.com/300',
+                description: 'Ivory agbada with subtle patterns.',
+                price: '₦23,000',
+                details: 'Lightweight brocade for a refined look.',
+                designNotes: [
+                    'Soft ivory tone for understated elegance.',
+                    'Subtle patterns woven into the fabric.',
+                    'Lighter brocade for comfort.'
+                ],
+                moreDetails: {
+                    material: '90% Brocade, 10% Cotton',
+                    sizing: 'Available in S, M, L; slightly loose fit',
+                    care: 'Dry clean to maintain fabric quality',
+                    styling: 'Style with neutral accessories for a refined look'
+                }
+            },
+            'shirttrouser1': {
+                title: 'Shirt Trouser Chic - Teal Modern',
+                image: 'https://via.placeholder.com/300',
+                description: 'Stylish teal shirt and trouser combo.',
+                price: '₦12,000',
+                details: 'Tailored for a modern, everyday look.',
+                designNotes: [
+                    'Vibrant teal color for a modern vibe.',
+                    'Slim-fit trouser with a tailored shirt.',
+                    'Breathable cotton for daily wear.'
+                ],
+                moreDetails: {
+                    material: '100% Cotton',
+                    sizing: 'Available in S, M, L; slim fit',
+                    care: 'Machine wash cold; tumble dry low',
+                    styling: 'Pair with loafers for a sleek appearance'
+                }
+            },
+            'shirttrouser2': {
+                title: 'Shirt Trouser Chic - Monochrome',
+                image: 'https://via.placeholder.com/300',
+                description: 'Monochrome shirt and trouser set.',
+                price: '₦11,500',
+                details: 'Sleek design for professional settings.',
+                designNotes: [
+                    'Black and white monochrome palette.',
+                    'Crisp shirt with a fitted trouser.',
+                    'Designed for professional elegance.'
+                ],
+                moreDetails: {
+                    material: '95% Cotton, 5% Spandex',
+                    sizing: 'Available in M, L, XL; fitted style',
+                    care: 'Machine wash on gentle cycle; iron on medium heat',
+                    styling: 'Add a black belt for a polished finish'
+                }
+            },
+            'shirttrouser3': {
+                title: 'Shirt Trouser Chic - Navy Classic',
+                image: 'https://via.placeholder.com/300',
+                description: 'Navy shirt and trouser with a classic fit.',
+                price: '₦12,500',
+                details: 'Comfortable fabric for all-day wear.',
+                designNotes: [
+                    'Timeless navy blue for versatility.',
+                    'Classic fit for a polished look.',
+                    'Soft fabric for all-day comfort.'
+                ],
+                moreDetails: {
+                    material: '100% Cotton',
+                    sizing: 'Available in S, M, L, XL; true to size',
+                    care: 'Machine wash cold; air dry recommended',
+                    styling: 'Wear with brown leather shoes for a classic look'
+                }
+            },
+            'shirttrouser4': {
+                title: 'Shirt Trouser Chic - Olive Casual',
+                image: 'https://via.placeholder.com/300',
+                description: 'Olive green casual shirt and trouser.',
+                price: '₦11,000',
+                details: 'Relaxed fit for casual outings.',
+                designNotes: [
+                    'Earthy olive green for a casual aesthetic.',
+                    'Relaxed fit for ease of movement.',
+                    'Cotton blend for a laid-back feel.'
+                ],
+                moreDetails: {
+                    material: '80% Cotton, 20% Polyester',
+                    sizing: 'Available in S, M, L; relaxed fit',
+                    care: 'Machine wash warm; tumble dry low',
+                    styling: 'Pair with sneakers for a casual vibe'
+                }
+            },
+            'asofi1': {
+                title: 'Aso Ofi Vibrant - Coral Bliss',
+                image: 'https://via.placeholder.com/300',
+                description: 'Vibrant coral aso ofi with rich colors.',
+                price: '₦18,000',
+                details: 'Handwoven with traditional Nigerian flair.',
+                designNotes: [
+                    'Bright coral color for a festive look.',
+                    'Handwoven with traditional techniques.',
+                    'Rich texture for cultural authenticity.'
+                ],
+                moreDetails: {
+                    material: '100% Handwoven Cotton',
+                    sizing: 'One size (customizable fit)',
+                    care: 'Hand wash in cold water; air dry to preserve weave',
+                    styling: 'Style with traditional beads for a festive look'
+                }
+            },
+            'asofi2': {
+                title: 'Aso Ofi Vibrant - Indigo Charm',
+                image: 'https://via.placeholder.com/300',
+                description: 'Indigo aso ofi with intricate patterns.',
+                price: '₦17,500',
+                details: 'Perfect for cultural celebrations.',
+                designNotes: [
+                    'Deep indigo with intricate patterns.',
+                    'Handcrafted for a unique design.',
+                    'Ideal for traditional events.'
+                ],
+                moreDetails: {
+                    material: '100% Handwoven Cotton',
+                    sizing: 'One size (adjustable fit)',
+                    care: 'Hand wash gently; avoid wringing to maintain shape',
+                    styling: 'Pair with gold accessories for a rich look'
+                }
+            },
+            'asofi3': {
+                title: 'Aso Ofi Vibrant - Gold Weave',
+                image: 'https://via.placeholder.com/300',
+                description: 'Gold aso ofi with elegant weaves.',
+                price: '₦19,000',
+                details: 'Luxurious fabric for special occasions.',
+                designNotes: [
+                    'Shimmering gold weave for elegance.',
+                    'Intricate patterns for a premium look.',
+                    'Perfect for high-end events.'
+                ],
+                moreDetails: {
+                    material: '90% Cotton, 10% Metallic Thread',
+                    sizing: 'One size (custom fit available)',
+                    care: 'Dry clean to preserve metallic threads',
+                    styling: 'Wear with a matching gele for a cohesive look'
+                }
+            },
+            'urbanvintage1': {
+                title: 'Urban Vintage - Retro Denim',
+                image: 'https://via.placeholder.com/300',
+                description: 'Vintage-inspired denim urban wear.',
+                price: '₦10,000',
+                details: 'Blends retro styles with contemporary cuts.',
+                designNotes: [
+                    'Faded denim for a retro vibe.',
+                    'Modern cut with a vintage wash.',
+                    'Durable fabric for everyday wear.'
+                ],
+                moreDetails: {
+                    material: '100% Denim (Cotton)',
+                    sizing: 'Available in S, M, L; true to size',
+                    care: 'Machine wash cold; avoid bleach to maintain wash',
+                    styling: 'Pair with a graphic tee for a street-style look'
+                }
+            },
+            'urbanvintage2': {
+                title: 'Urban Vintage - Graphic Tee',
+                image: 'https://via.placeholder.com/300',
+                description: 'Graphic tee with vintage prints.',
+                price: '₦8,500',
+                details: 'Soft cotton for a casual vibe.',
+                designNotes: [
+                    'Retro-inspired graphic print.',
+                    'Soft cotton for comfort.',
+                    'Relaxed fit for a casual look.'
+                ],
+                moreDetails: {
+                    material: '100% Cotton',
+                    sizing: 'Available in S, M, L, XL; relaxed fit',
+                    care: 'Machine wash warm; tumble dry low',
+                    styling: 'Style with denim jeans for a vintage feel'
+                }
+            },
+            'urbanvintage3': {
+                title: 'Urban Vintage - Bomber Jacket',
+                image: 'https://via.placeholder.com/300',
+                description: 'Vintage bomber jacket in olive green.',
+                price: '₦12,000',
+                details: 'Perfect for a trendy street look.',
+                designNotes: [
+                    'Olive green with a vintage finish.',
+                    'Ribbed cuffs and hem for a classic look.',
+                    'Lightweight for versatile wear.'
+                ],
+                moreDetails: {
+                    material: '80% Polyester, 20% Cotton (Lining)',
+                    sizing: 'Available in M, L, XL; true to size',
+                    care: 'Dry clean or hand wash; avoid high heat',
+                    styling: 'Wear over a hoodie for a layered street look'
+                }
+            },
+            'caps1': {
+                title: 'Stylish Caps - Embroidered Black',
+                image: 'https://via.placeholder.com/300',
+                description: 'Black cap with embroidered logo.',
+                price: '₦2,500',
+                details: 'Designed for comfort and style.',
+                designNotes: [
+                    'Sleek black with embroidered logo.',
+                    'Adjustable strap for a perfect fit.',
+                    'Cotton fabric for breathability.'
+                ],
+                moreDetails: {
+                    material: '100% Cotton',
+                    sizing: 'One size (adjustable strap)',
+                    care: 'Hand wash in cold water; air dry',
+                    styling: 'Pairs well with casual urban wear'
+                }
+            },
+            'caps2': {
+                title: 'Stylish Caps - Beaded Traditional',
+                image: 'https://via.placeholder.com/300',
+                description: 'Traditional cap with beaded design.',
+                price: '₦3,000',
+                details: 'Pairs well with agbada or kaftan.',
+                designNotes: [
+                    'Traditional design with beaded accents.',
+                    'Rich colors for cultural appeal.',
+                    'Structured shape for a polished look.'
+                ],
+                moreDetails: {
+                    material: '80% Cotton, 20% Beaded Accents',
+                    sizing: 'One size (fits most)',
+                    care: 'Spot clean to preserve beads; avoid soaking',
+                    styling: 'Perfect match for traditional agbada outfits'
+                }
+            }
+        };
+
+        let currentPage = 1;
+        const itemsPerPage = 6;
+
+        function renderCollectionGrid(searchTerm = '') {
+            console.log('Rendering collection grid with search term:', searchTerm);
+            const grid = document.getElementById('collection-grid');
+            if (!grid) {
+                console.error('Collection grid element not found');
+                return;
+            }
+            grid.innerHTML = '';
+
+            const filteredCollections = Object.keys(collections).filter(key => {
+                const collection = collections[key];
+                return searchTerm === '' || 
+                       collection.title.toLowerCase().includes(searchTerm) || 
+                       collection.description.toLowerCase().includes(searchTerm);
+            });
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            filteredCollections.slice(start, end).forEach(key => {
+                const collection = collections[key];
+                const card = document.createElement('div');
+                card.className = 'collection-card';
+                card.setAttribute('data-collection', key);
+                card.innerHTML = `
+                    <div class="image-wrapper">
+                        <img src="${collection.image}" alt="${collection.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300';">
+                    </div>
+                    <h3>${collection.title}</h3>
+                    <p class="meta">Price: ${collection.price}</p>
+                    <p>${collection.description}</p>
+                    <button class="view-details" data-collection="${key}">View Details</button>
+                `;
+                grid.appendChild(card);
+            });
+
+            console.log('Rendered', grid.children.length, 'collection cards');
+
+            document.querySelectorAll('.view-details').forEach(button => {
+                button.addEventListener('click', () => {
+                    const collectionKey = button.getAttribute('data-collection');
+                    console.log('Direct button click:', collectionKey);
+                    showCollection(collectionKey);
+                });
+            });
+
+            const pagination = document.getElementById('pagination');
+            if (!pagination) {
+                console.error('Pagination element not found');
+                return;
+            }
+            pagination.innerHTML = '';
+            const totalPages = Math.ceil(filteredCollections.length / itemsPerPage);
+            for (let i = 1; i <= totalPages; i++) {
+                const link = document.createElement('a');
+                link.href = '#';
+                link.className = i === currentPage ? 'active' : '';
+                link.setAttribute('data-page', i);
+                link.textContent = i;
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = parseInt(link.getAttribute('data-page'));
+                    renderCollectionGrid(searchTerm);
+                });
+                pagination.appendChild(link);
+            }
+        }
+
+        function showCollection(collectionKey) {
+            try {
+                console.log('Showing collection:', collectionKey);
+                const collection = collections[collectionKey];
+                if (!collection) {
+                    throw new Error(`Collection not found: ${collectionKey}`);
+                }
+
+                const modal = document.getElementById('collection-modal');
+                const content = document.getElementById('collection-content');
+                if (!modal || !content) {
+                    throw new Error('Modal or content not found');
+                }
+
+                content.innerHTML = `
+                    <h2>${collection.title}</h2>
+                    <img src="${collection.image}" alt="${collection.title}">
+                    <p class="meta">Price: ${collection.price}</p>
+                    <div class="content">${collection.details}</div>
+                    <div class="design-notes">
+                        <h3>Design Notes</h3>
+                        <ul>
+                            ${collection.designNotes.map(note => `<li>${note}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="more-details">
+                        <h3>More Details</h3>
+                        <p><strong>Material:</strong> ${collection.moreDetails.material}</p>
+                        <p><strong>Sizing:</strong> ${collection.moreDetails.sizing}</p>
+                        <p><strong>Care Instructions:</strong> ${collection.moreDetails.care}</p>
+                        <p><strong>Styling Tips:</strong> ${collection.moreDetails.styling}</p>
+                    </div>
+                `;
+
+                modal.classList.add('active');
+                modal.style.display = 'block';
+                console.log('Modal opened for:', collection.title);
+            } catch (error) {
+                console.error('Error in showCollection:', error.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM fully loaded, initializing...');
+
+            const nav = document.querySelector('nav');
+            const hamburger = document.querySelector('.hamburger');
+            const closeNav = document.querySelector('.close-nav');
+            const contentWrapper = document.querySelector('.content-wrapper');
+
+            if (hamburger && nav && closeNav && contentWrapper) {
+                hamburger.addEventListener('click', () => {
+                    nav.classList.add('active');
+                    contentWrapper.classList.add('nav-open');
+                });
+
+                closeNav.addEventListener('click', () => {
+                    nav.classList.remove('active');
+                    contentWrapper.classList.remove('nav-open');
+                });
+
+                nav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        nav.classList.remove('active');
+                        contentWrapper.classList.remove('nav-open');
+                    });
+                });
+            }
+
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', () => {
+                    document.body.classList.toggle('dark-mode');
+                    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                    darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+                });
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    darkModeToggle.textContent = '☀️';
+                }
+            }
+
+            const collectionSearch = document.getElementById('collection-search');
+            if (collectionSearch) {
+                let debounceTimeout;
+                collectionSearch.addEventListener('input', (e) => {
+                    clearTimeout(debounceTimeout);
+                    debounceTimeout = setTimeout(() => {
+                        currentPage = 1;
+                        renderCollectionGrid(e.target.value.toLowerCase());
+                    }, 300);
+                });
+            }
+
+            const closeModalButton = document.querySelector('#collection-modal .close-modal');
+            if (closeModalButton) {
+                closeModalButton.addEventListener('click', () => {
+                    const modal = document.getElementById('collection-modal');
+                    if (modal) {
+                        modal.classList.remove('active');
+                        modal.style.display = 'none';
+                        console.log('Modal closed');
+                    }
+                });
+            }
+
+            document.addEventListener('click', (e) => {
+                const modal = document.getElementById('collection-modal');
+                if (modal && modal.classList.contains('active') && !modal.contains(e.target) && !e.target.closest('.view-details')) {
+                    modal.classList.remove('active');
+                    modal.style.display = 'none';
+                    console.log('Modal closed (click outside)');
+                }
+            });
+
+            const collectionGrid = document.getElementById('collection-grid');
+            if (collectionGrid) {
+                collectionGrid.addEventListener('click', (event) => {
+                    console.log('Grid click:', event.target);
+                    if (event.target.classList.contains('view-details')) {
+                        event.preventDefault();
+                        const collectionKey = event.target.getAttribute('data-collection');
+                        console.log('Button clicked, key:', collectionKey);
+                        if (collectionKey && collections[collectionKey]) {
+                            showCollection(collectionKey);
+                        } else {
+                            console.error('Invalid collection key:', collectionKey);
+                        }
+                    }
+                });
+            } else {
+                console.error('Collection grid not found');
+            }
+
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (header) {
+                    header.classList.toggle('shrink', window.scrollY > 50);
+                }
+            });
+
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const form = e.target;
+                    const formMessage = form.querySelector('.form-message');
+                    formMessage.innerHTML = '<p class="success">Thanks for joining our Style Tribe!</p>';
+                    form.reset();
+                    setTimeout(() => formMessage.innerHTML = '', 3000);
+                });
+            }
+
+            renderCollectionGrid();
+        });
+    </script>
+</body>
+</html>

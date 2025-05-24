@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAF Clothings - Ultimate Style Battle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #F5F5F5;
+            --bg-secondary: #FFFFFF;
+            --accent-primary: #2E3192;
+            --accent-secondary: #E0B973;
+            --highlight: #D4A017;
+            --text-primary: #1A1A2E;
+            --text-secondary: #666666;
+            --success: #28A745;
+            --error: #DC3545;
+            --footer-bg: #F8F9FA;
+            --glow-holo: rgba(46, 50, 146, 0.9);
+            --glow-neon: rgba(224, 185, 115, 0.8);
+        }
+        .dark-mode {
+            --bg-primary: #1A1A2E;
+            --bg-secondary: #2C2E3E;
+            --text-primary: #F5F5F5;
+            --text-secondary: #B0B0B0;
+            --footer-bg: #2C2E3E;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary), var(--highlight));
+        }
+
+        .content-wrapper {
+            transition: filter 0.3s ease;
+        }
+        .content-wrapper.nav-open { filter: blur(3px); }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            z-index: 1001;
+        }
+
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 0 20px var(--glow-neon);
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .fab:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 30px var(--glow-neon);
+        }
+        .fab-menu {
+            position: fixed;
+            bottom: 5rem;
+            right: 2.5rem;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 999;
+        }
+        .fab-menu.active { display: flex; }
+        .fab-menu a {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .fab-menu a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--glow-neon);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(46, 50, 146, 0.7));
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            box-shadow: 0 4px 25px var(--glow-holo);
+        }
+        .top-bar {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo { width: 60px; height: 60px; }
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-secondary);
+            box-shadow: 0 0 20px var(--glow-neon);
+            animation: orbit-glow 10s linear infinite;
+        }
+        @keyframes orbit-glow {
+            0% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
+            50% { box-shadow: 0 0 30px var(--glow-neon), 0 0 40px var(--glow-holo); }
+            100% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
+        }
+        .search-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+            justify-content: flex-end;
+        }
+        .search-bar {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            border: 1px solid var(--accent-secondary);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+        .search-bar input:focus {
+            box-shadow: 0 0 10px var(--accent-primary);
+            outline: none;
+        }
+        .search-bar::after {
+            content: '🔍';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        nav { display: flex; gap: 1.5rem; }
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.2rem 0;
+        }
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.4s ease;
+        }
+        nav a:hover::before { width: 100%; }
+        .header-icons { display: flex; gap: 1rem; }
+        #dark-mode-toggle { cursor: pointer; font-size: 1.2rem; color: var(--text-primary); }
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
+        .nav-header { display: none; }
+
+        .hero {
+            position: relative;
+            height: 400px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-primary), var(--highlight));
+            border-radius: 15px;
+            margin: 120px 2rem 3rem;
+            padding: 2rem;
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFFFFF;
+            text-shadow: 0 0 15px var(--accent-secondary);
+            width: 90%;
+            max-width: 700px;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 10px var(--accent-secondary); }
+            50% { transform: scale(1.05); text-shadow: 0 0 20px var(--accent-secondary); }
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: slideUpFade 1s ease-in-out;
+        }
+        @keyframes slideUpFade {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        main { padding: 2rem; }
+        .section {
+            margin: 4rem 0;
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section.visible { opacity: 1; transform: translateY(0); }
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .section p {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .mute-toggle, .speed-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        .mute-toggle:hover, .speed-toggle:hover {
+            box-shadow: 0 0 10px var(--glow-neon);
+        }
+        .battle-meter {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .battle-meter-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .battle-meter-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.5s ease;
+        }
+        .battle-meter-text {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: var(--accent-primary);
+        }
+        .timer {
+            font-size: 1.2rem;
+            color: var(--accent-secondary);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .quiz-battle {
+            display: none;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+        .quiz-battle.active { display: block; }
+        .quiz-battle h3 {
+            font-size: 1.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .battle-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+        .battle-vs {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent-secondary);
+            text-shadow: 0 0 10px var(--glow-neon);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .battle-option {
+            flex: 1;
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .battle-option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--glow-neon);
+        }
+        .battle-option.selected {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--glow-neon);
+        }
+        .battle-option img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .battle-option p {
+            background: rgba(0, 0, 0, 0.7);
+            color: #FFFFFF;
+            padding: 0.5rem;
+            margin: 0;
+            font-size: 1rem;
+            text-align: center;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .battle-option:hover img { animation: pulse 0.6s infinite; }
+
+        .results-section {
+            display: none;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .results-section.active { display: block; }
+        .results-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        .results-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .results-section img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            margin: 1rem 0;
+        }
+        .style-match { margin: 1rem 0; }
+        .style-match p {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 0.2rem 0;
+        }
+        .style-match span {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .recommendations { margin: 1rem 0; }
+        .recommendations h4 {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        .recommendations ul { list-style: none; }
+        .recommendations li {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+        }
+        .recommendations a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+        .recommendations a:hover { text-decoration: underline; }
+        .playlist { margin: 1rem 0; }
+        .playlist h4 {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        .playlist ul { list-style: none; }
+        .playlist li {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+        }
+        .playlist a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+        .leaderboard { margin: 1rem 0; }
+        .leaderboard h4 {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        .leaderboard table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .leaderboard th, .leaderboard td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .leaderboard th { color: var(--accent-primary); }
+        .avatar-creator { margin: 1rem 0; }
+        .avatar-creator h4 {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        .avatar-creator select {
+            padding: 0.5rem;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+            margin: 0.5rem;
+        }
+        .avatar-creator button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        .avatar-canvas {
+            border: 2px solid var(--accent-secondary);
+            border-radius: 10px;
+            margin: 1rem auto;
+            display: block;
+        }
+        .ar-preview { margin: 1rem 0; }
+        .ar-preview h4 {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        .ar-canvas {
+            border: 2px solid var(--accent-secondary);
+            border-radius: 10px;
+            margin: 1rem auto;
+            display: block;
+        }
+        .ar-controls button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        .style-map { margin: 1rem 0; }
+        .style-map h4 {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        .style-map svg {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: block;
+        }
+        .style-map path {
+            fill: rgba(255, 255, 255, 0.2);
+            stroke: var(--accent-primary);
+            transition: fill 0.3s;
+        }
+        .style-map path:hover {
+            fill: var(--accent-secondary);
+            cursor: pointer;
+        }
+        .map-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--glow-neon);
+            z-index: 1000;
+        }
+        .map-popup.active { display: block; }
+        .map-popup p {
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .map-popup button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        .results-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .results-buttons button,
+        .results-buttons a {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--accent-secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .results-buttons button:hover,
+        .results-buttons a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--accent-secondary);
+        }
+
+        footer {
+            background: var(--footer-bg);
+            padding: 3rem 1rem;
+            border-top: 5px solid var(--accent-secondary);
+            margin-top: 4rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+        }
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+        footer p, footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0.5rem 0;
+        }
+        footer p i { margin-right: 0.5rem; color: var(--accent-primary); }
+        footer form { display: flex; flex-direction: column; gap: 0.5rem; }
+        footer input {
+            padding: 0.6rem;
+            border: 1px solid var(--accent-secondary);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+        footer button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            border: none;
+            padding: 0.6rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .form-message { text-align: center; margin-top: 0.5rem; }
+        .success { color: var(--success); }
+        .error { color: var(--error); }
+        .social-icons { display: flex; gap: 1.5rem; }
+        .social-icons a { font-size: 2rem; color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+            .main-header { padding: 0.5rem 1rem; }
+            .logo { width: 40px; height: 40px; }
+            .search-bar { max-width: 100%; }
+            nav {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 70%;
+                height: 100vh;
+                background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+                padding: 2rem 1rem;
+                transition: left 0.3s ease;
+            }
+            nav.active { display: block; left: 0; }
+            .nav-header { display: flex; justify-content: space-between; margin-bottom: 2rem; }
+            nav .nav-header h3 { font-size: 1.5rem; color: #FFFFFF; }
+            nav .close-nav { font-size: 1.5rem; color: #FFFFFF; cursor: pointer; }
+            nav a { display: block; margin: 1.5rem 0; font-size: 1.2rem; color: #FFFFFF; }
+            .hamburger { display: block; }
+            .hero { height: 300px; margin: 120px 1rem 2rem; }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content p { font-size: 1rem; }
+            main { padding: 1rem; }
+            .section { padding: 1.5rem; }
+            .section h2 { font-size: 2rem; }
+            .quiz-battle h3 { font-size: 1.4rem; }
+            .battle-option img { height: 150px; }
+            .battle-option p { font-size: 0.9rem; }
+            .battle-vs { font-size: 1.5rem; }
+            .results-section h3 { font-size: 1.5rem; }
+            .results-buttons button, .results-buttons a { font-size: 1rem; padding: 0.8rem 1.5rem; }
+            footer { padding: 2rem 1rem; }
+            .fab { width: 50px; height: 50px; font-size: 1.5rem; }
+            .avatar-canvas, .ar-canvas { width: 200px; height: 200px; }
+            .style-map svg { max-width: 300px; }
+        }
+        @media (max-width: 480px) {
+            .hero { height: 250px; margin: 110px 0.5rem 1.5rem; }
+            .hero-content h1 { font-size: 1.5rem; }
+            .hero-content p { font-size: 0.9rem; }
+            .section h2 { font-size: 1.5rem; }
+            .quiz-battle h3 { font-size: 1.2rem; }
+            .battle-option img { height: 120px; }
+            .battle-option p { font-size: 0.8rem; }
+            .battle-vs { font-size: 1.2rem; }
+            .fab { width: 40px; height: 40px; font-size: 1.2rem; }
+            .avatar-canvas, .ar-canvas { width: 150px; height: 150px; }
+            .style-map svg { max-width: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar"></div>
+    <canvas id="particles"></canvas>
+    <div class="content-wrapper">
+        <header>
+            <div class="top-bar">✨ Conquer the Style Arena with NAF Clothings! ✨</div>
+            <div class="main-header">
+                <div class="logo">
+                    <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/i_want_a_perfect_logo_for_the.jpeg" alt="NAF Clothings Logo" class="logo-img">
+                </div>
+                <div class="search-nav">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search..." id="search">
+                    </div>
+                    <span class="hamburger">☰</span>
+                    <nav>
+                        <div class="nav-header">
+                            <h3>NAF Clothings</h3>
+                            <span class="close-nav">✖</span>
+                        </div>
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About</a>
+                        <a href="showroom.html">Showroom</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="contact.html">Contact</a>
+                    </nav>
+                </div>
+                <div class="header-icons">
+                    <span id="dark-mode-toggle">🌙</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Ultimate Style Battle</h1>
+                    <p>Fight for your fashion crown in NAF’s epic style showdown!</p>
+                </div>
+            </section>
+
+            <section class="quiz-section section">
+                <h2>Enter the Style Arena</h2>
+                <p>Pick the winning outfit in each battle to claim your NAF style legacy!</p>
+                <div class="quiz-container">
+                    <div class="quiz-controls">
+                        <button class="mute-toggle" id="mute-toggle">🔊 Mute</button>
+                        <button class="speed-toggle" id="speed-toggle">⚡ Speed Battle</button>
+                    </div>
+                    <div class="battle-meter">
+                        <div class="battle-meter-bar">
+                            <div class="battle-meter-fill" id="battle-meter-fill"></div>
+                        </div>
+                        <div class="battle-meter-text" id="battle-meter-text">Ready to battle?</div>
+                    </div>
+                    <div class="timer" id="timer"></div>
+                    <div class="quiz-battle" data-index="0">
+                        <h3>Wedding Showdown: Who steals the show?</h3>
+                        <div class="battle-options">
+                            <div class="battle-option" data-style="dapper" data-points="10">
+                                <img src="https://via.placeholder.com/300?text=Sleek+Agbada" alt="Sleek Agbada">
+                                <p>Sleek agbada, pure royalty</p>
+                            </div>
+                            <div class="battle-vs">VS</div>
+                            <div class="battle-option" data-style="vibe" data-points="15">
+                                <img src="https://via.placeholder.com/300?text=Funky+Dashiki" alt="Funky Dashiki">
+                                <p>Funky dashiki, crowd magnet</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quiz-battle" data-index="1">
+                        <h3>Party Clash: Who owns the dancefloor?</h3>
+                        <div class="battle-options">
+                            <div class="battle-option" data-style="dapper" data-points="10">
+                                <img src="https://via.placeholder.com/300?text=Sharp+Suit" alt="Sharp Suit">
+                                <p>Sharp suit, smooth operator</p>
+                            </div>
+                            <div class="battle-vs">VS</div>
+                            <div class="battle-option" data-style="vibe" data-points="15">
+                                <img src="https://via.placeholder.com/300?text=Beaded+Fit" alt="Beaded Fit">
+                                <p>Beaded fit, total showstopper</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quiz-battle" data-index="2">
+                        <h3>Beach Brawl: Who’s the chillest?</h3>
+                        <div class="battle-options">
+                            <div class="battle-option" data-style="dapper" data-points="10">
+                                <img src="https://via.placeholder.com/300?text=Linen+Set" alt="Linen Set">
+                                <p>Linen set, classy and cool</p>
+                            </div>
+                            <div class="battle-vs">VS</div>
+                            <div class="battle-option" data-style="laidback" data-points="5">
+                                <img src="https://via.placeholder.com/300?text=Plain+Tee" alt="Plain Tee">
+                                <p>Plain tee, ultimate chill</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quiz-battle" data-index="3">
+                        <h3>Accessory Duel: Who’s got the edge?</h3>
+                        <div class="battle-options">
+                            <div class="battle-option" data-style="vibe" data-points="15">
+                                <img src="https://via.placeholder.com/300?text=Chunky+Beads" alt="Chunky Beads">
+                                <p>Chunky beads, bold vibes</p>
+                            </div>
+                            <div class="battle-vs">VS</div>
+                            <div class="battle-option" data-style="laidback" data-points="5">
+                                <img src="https://via.placeholder.com/300?text=Minimal+Cap" alt="Minimal Cap">
+                                <p>Minimal cap, lowkey flex</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="results-section" id="quiz-results">
+                        <h3>You’re a <span id="style-name"></span>!</h3>
+                        <p id="style-description"></p>
+                        <p>Victory Points: <span id="victory-points"></span></p>
+                        <div class="style-match">
+                            <p>Dapper King: <span id="match-dapper">0</span>%</p>
+                            <p>Vibe Emperor: <span id="match-vibe">0</span>%</p>
+                            <p>Laidback Legend: <span id="match-laidback">0</span>%</p>
+                        </div>
+                        <img id="style-image" src="" alt="Style Result">
+                        <div class="recommendations">
+                            <h4>NAF Picks for You</h4>
+                            <ul id="recommendations"></ul>
+                        </div>
+                        <div class="playlist">
+                            <h4>Your Style Vibe Playlist</h4>
+                            <ul id="playlist"></ul>
+                        </div>
+                        <div class="avatar-creator">
+                            <h4>Create Your Style Avatar</h4>
+                            <select id="avatar-outfit">
+                                <option value="base">Base Outfit</option>
+                                <option value="cap">Add Cap</option>
+                                <option value="beads">Add Beads</option>
+                            </select>
+                            <button onclick="updateAvatar()">Update Avatar</button>
+                            <button onclick="downloadAvatar()">Download Avatar</button>
+                            <canvas id="avatar-canvas" width="250" height="250" class="avatar-canvas"></canvas>
+                        </div>
+                        <div class="ar-preview">
+                            <h4>Try Your Outfit in AR</h4>
+                            <div class="ar-controls">
+                                <button onclick="rotateAR()">Rotate</button>
+                                <button onclick="changeARColor()">Change Color</button>
+                            </div>
+                            <canvas id="ar-canvas" width="250" height="250" class="ar-canvas"></canvas>
+                        </div>
+                        <div class="leaderboard">
+                            <h4>Style Battle Leaders</h4>
+                            <table id="leaderboard">
+                                <thead>
+                                    <tr><th>Rank</th><th>Name</th><th>Points</th></tr>
+                                </thead>
+                                <tbody id="leaderboard-body"></tbody>
+                            </table>
+                        </div>
+                        <div class="style-map">
+                            <h4>Where Your Style Shines</h4>
+                            <svg viewBox="0 0 100 100">
+                                <path id="lagos" d="M20,20 L40,20 L40,40 L20,40 Z" />
+                                <path id="owambe" d="M50,20 L70,20 L70,40 L50,40 Z" />
+                                <path id="beach" d="M20,50 L40,50 L40,70 L20,70 Z" />
+                            </svg>
+                            <div class="map-popup" id="map-popup">
+                                <p id="map-popup-text"></p>
+                                <button onclick="closeMapPopup()">Close</button>
+                            </div>
+                        </div>
+                        <p id="social-share">Share: I’m a [Style] in NAF’s Style Battle! 🧵 #NAFStyleBattle</p>
+                        <div class="results-buttons">
+                            <button onclick="restartBattle()">Restart Battle</button>
+                            <button onclick="sharePreview()">Share Preview</button>
+                            <button onclick="viewPastStyles()">View Past Styles</button>
+                            <a href="contact.html#contact-section">Contact NAF</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>NAF Clothings</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 25 Fashion Avenue, Lagos, Nigeria</p>
+                    <p><i class="fas fa-phone-alt"></i> +234 810 967 4683</p>
+                    <p><i class="fas fa-envelope"></i> style@nafclothings.ng</p>
+                </div>
+                <div>
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="about.html">About</a></p>
+                    <p><a href="showroom.html">Showroom</a></p>
+                    <p><a href="blog.html">Blog</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                </div>
+                <div>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://tiktok.com/@nafclothings_ng" class="fab fa-tiktok"></a>
+                        <a href="https://twitter.com/nafclothings_ng" class="fab fa-twitter"></a>
+                        <a href="https://facebook.com/nafclothings_ng" class="fab fa-facebook-f"></a>
+                        <a href="https://instagram.com/nafclothings_ng" class="fab fa-instagram"></a>
+                        <a href="https://wa.me/+234 810 967 4683" class="fab fa-whatsapp"></a>
+                    </div>
+                    <h3 style="margin-top: 1.5rem;">Newsletter</h3>
+                    <form id="newsletter-form">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <button type="submit">Join Our Style Tribe!</button>
+                        <div class="form-message"></div>
+                    </form>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="fab">
+        <i class="fas fa-plus"></i>
+    </div>
+    <div class="fab-menu">
+        <a href="https://wa.me/+234 810 967 4683?call"><i class="fab fa-whatsapp"></i> Video Call</a>
+        <a href="mailto:style@nafclothings.ng"><i class="fas fa-envelope"></i> Email Us</a>
+        <a href="style-quiz.html"><i class="fas fa-question-circle"></i> Take Quiz</a>
+    </div>
+
+    <audio id="select-sound" src="https://example.com/select.mp3"></audio>
+    <audio id="results-sound" src="https://example.com/results.mp3"></audio>
+
+    <script>
+        // Particle Animation
+        const canvas = document.getElementById('particles');
+        let ctx;
+        if (canvas) {
+            ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        const particlesArray = [];
+        const numberOfParticles = 150;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * (canvas ? canvas.width : window.innerWidth);
+                this.y = Math.random() * (canvas ? canvas.height : window.innerHeight);
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = `hsla(${Math.random() * 360}, 70%, 50%, 0.8)`;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() * 0.1 - 0.05;
+            }
+            update() {
+                this.x += this.speedX + Math.cos(this.angle) * 0.5;
+                this.y += this.speedY + Math.sin(this.angle) * 0.5;
+                this.angle += this.spin;
+                if (this.x < 0 || this.x > (canvas ? canvas.width : window.innerWidth)) this.speedX *= -1;
+                if (this.y < 0 || this.y > (canvas ? canvas.height : window.innerHeight)) this.speedY *= -1;
+                this.size = Math.max(this.size - 0.01, 2);
+            }
+            draw() {
+                if (ctx) {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+
+        if (canvas && ctx) {
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    particlesArray[i].draw();
+                    for (let j = i; j < particlesArray.length; j++) {
+                        const dx = particlesArray[i].x - particlesArray[j].x;
+                        const dy = particlesArray[i].y - particlesArray[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 100) {
+                            ctx.strokeStyle = `rgba(224, 185, 115, ${1 - distance / 100})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                            ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.querySelector('nav');
+            const hamburger = document.querySelector('.hamburger');
+            const closeNav = document.querySelector('.close-nav');
+            const contentWrapper = document.querySelector('.content-wrapper');
+
+            if (hamburger && nav && closeNav && contentWrapper) {
+                hamburger.addEventListener('click', () => {
+                    nav.classList.add('active');
+                    contentWrapper.classList.add('nav-open');
+                });
+
+                closeNav.addEventListener('click', () => {
+                    nav.classList.remove('active');
+                    contentWrapper.classList.remove('nav-open');
+                });
+
+                nav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        nav.classList.remove('active');
+                        contentWrapper.classList.remove('nav-open');
+                    });
+                });
+            }
+
+            // Dark Mode
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', () => {
+                    document.body.classList.toggle('dark-mode');
+                    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                    darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+                });
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    darkModeToggle.textContent = '☀️';
+                }
+            }
+
+            // Scroll Animations
+            const sections = document.querySelectorAll('.section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        sectionObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            sections.forEach(section => sectionObserver.observe(section));
+
+            // Progress Bar
+            const progressBar = document.querySelector('.progress-bar');
+            function updateProgressBar() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                progressBar.style.width = `${scrollPercent}%`;
+            }
+            window.addEventListener('scroll', updateProgressBar);
+
+            // FAB Menu
+            const fab = document.querySelector('.fab');
+            const fabMenu = document.querySelector('.fab-menu');
+            if (fab && fabMenu) {
+                fab.addEventListener('click', () => {
+                    fabMenu.classList.toggle('active');
+                    fab.style.transform = fabMenu.classList.contains('active') ? 'rotate(45deg)' : 'rotate(0)';
+                });
+                document.addEventListener('click', (e) => {
+                    if (!fab.contains(e.target) && !fabMenu.contains(e.target)) {
+                        fabMenu.classList.remove('active');
+                        fab.style.transform = 'rotate(0)';
+                    }
+                });
+            }
+
+            // Quiz Logic
+            const battles = document.querySelectorAll('.quiz-battle');
+            const resultsSection = document.getElementById('quiz-results');
+            const battleMeterFill = document.getElementById('battle-meter-fill');
+            const battleMeterText = document.getElementById('battle-meter-text');
+            const timerDisplay = document.getElementById('timer');
+            const styleName = document.getElementById('style-name');
+            const styleDescription = document.getElementById('style-description');
+            const victoryPointsDisplay = document.getElementById('victory-points');
+            const styleImage = document.getElementById('style-image');
+            const socialShare = document.getElementById('social-share');
+            const recommendationsList = document.getElementById('recommendations');
+            const playlistList = document.getElementById('playlist');
+            const leaderboardBody = document.getElementById('leaderboard-body');
+            const avatarCanvas = document.getElementById('avatar-canvas');
+            const avatarCtx = avatarCanvas?.getContext('2d');
+            const arCanvas = document.getElementById('ar-canvas');
+            const arCtx = arCanvas?.getContext('2d');
+            const mapPopup = document.getElementById('map-popup');
+            const mapPopupText = document.getElementById('map-popup-text');
+            const selectSound = document.getElementById('select-sound');
+            const resultsSound = document.getElementById('results-sound');
+            const muteToggle = document.getElementById('mute-toggle');
+            const speedToggle = document.getElementById('speed-toggle');
+
+            let isMuted = false;
+            let speedMode = false;
+            let timerInterval;
+
+            const styles = {
+                dapper: {
+                    name: 'Dapper King',
+                    description: 'You rule the scene with polished, tailored looks that scream class. Whether it’s a wedding or a boardroom, your style is sharp and unstoppable. Slay with NAF’s agbadas and suits!',
+                    image: 'https://via.placeholder.com/300?text=Dapper+King+Fit',
+                    share: 'Dapper King',
+                    recommendations: [
+                        { name: 'Royal Blue Agbada', link: 'showroom.html#agbada' },
+                        { name: 'Black Sharp Suit', link: 'showroom.html#suit' }
+                    ],
+                    playlist: [
+                        { name: 'Smooth Operator - Sade', link: 'https://spotify.com/track1' },
+                        { name: 'Suit & Tie - Justin Timberlake', link: 'https://spotify.com/track2' }
+                    ],
+                    avatar: 'https://via.placeholder.com/250?text=Dapper+Base',
+                    ar: 'https://via.placeholder.com/250?text=Dapper+AR'
+                },
+                vibe: {
+                    name: 'Vibe Emperor',
+                    description: 'You bring the energy with bold, colorful fits that light up any room. Parties are your kingdom, and you’re the star. Rock NAF’s dashikis and beaded looks to keep the vibes high!',
+                    image: 'https://via.placeholder.com/300?text=Vibe+Emperor+Fit',
+                    share: 'Vibe Emperor',
+                    recommendations: [
+                        { name: 'Neon Green Dashiki', link: 'showroom.html#dashiki' },
+                        { name: 'Beaded Aso Ofi', link: 'showroom.html#asoofi' }
+                    ],
+                    playlist: [
+                        { name: 'Yori Yori - Bracket', link: 'https://spotify.com/track3' },
+                        { name: 'Afrobeat Mix - Burna Boy', link: 'https://spotify.com/track4' }
+                    ],
+                    avatar: 'https://via.placeholder.com/250?text=Vibe+Base',
+                    ar: 'https://via.placeholder.com/250?text=Vibe+AR'
+                },
+                laidback: {
+                    name: 'Laidback Legend',
+                    description: 'You keep it chill with comfy, lowkey outfits that still turn heads. Your vibe is effortless, perfect for beach hangs or casual flexes. NAF’s tees and relaxed fits are your jam!',
+                    image: 'https://via.placeholder.com/300?text=Laidback+Legend+Fit',
+                    share: 'Laidback Legend',
+                    recommendations: [
+                        { name: 'White Native Tee', link: 'showroom.html#tee' },
+                        { name: 'Relaxed Shorts', link: 'showroom.html#shorts' }
+                    ],
+                    playlist: [
+                        { name: 'One Love - Bob Marley', link: 'https://spotify.com/track5' },
+                        { name: 'Chill Vibes - Wizkid', link: 'https://spotify.com/track6' }
+                    ],
+                    avatar: 'https://via.placeholder.com/250?text=Laidback+Base',
+                    ar: 'https://via.placeholder.com/250?text=Laidback+AR'
+                }
+            };
+
+            const meterMessages = [
+                'Ready to battle?',
+                '1 battle won, keep it up!',
+                '2 battles down, you’re slaying!',
+                '3 battles crushed, almost there!',
+                'You’re a style champion!'
+            ];
+
+            const mapLocations = {
+                lagos: 'Dapper King owns Lagos weddings with sharp agbadas!',
+                owambe: 'Vibe Emperor slays Owambe parties with bold dashikis!',
+                beach: 'Laidback Legend chills at beach hangs with relaxed tees!'
+            };
+
+            const leaderboardData = [
+                { name: 'StyleStar', points: 60 },
+                { name: 'FashionGuru', points: 55 },
+                { name: 'DripLord', points: 50 }
+            ];
+
+            let currentBattle = 0;
+            let scores = { dapper: 0, vibe: 0, laidback: 0 };
+            let totalPoints = 0;
+            let pastStyles = JSON.parse(localStorage.getItem('pastStyles')) || [];
+            let arRotation = 0;
+            let arColorIndex = 0;
+            const arColors = ['#FFFFFF', '#E0B973', '#2E3192'];
+
+            battles[0].classList.add('active');
+
+            function updateMeter() {
+                const progress = (currentBattle / battles.length) * 100;
+                battleMeterFill.style.width = `${progress}%`;
+                battleMeterText.textContent = meterMessages[currentBattle];
+            }
+
+            function startTimer() {
+                if (!speedMode) return;
+                let timeLeft = 10;
+                timerDisplay.textContent = `Time: ${timeLeft}s`;
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timerDisplay.textContent = `Time: ${timeLeft}s`;
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        const options = battles[currentBattle].querySelectorAll('.battle-option');
+                        const randomOption = options[Math.floor(Math.random() * options.length)];
+                        randomOption.click();
+                    }
+                }, 1000);
+            }
+
+            function showResults() {
+                clearInterval(timerInterval);
+                timerDisplay.textContent = '';
+                let maxScore = 0;
+                let resultStyle = 'dapper';
+                const totalSelections = Object.values(scores).reduce((a, b) => a + b, 0);
+                for (let style in scores) {
+                    if (scores[style] > maxScore) {
+                        maxScore = scores[style];
+                        resultStyle = style;
+                    }
+                    const percentage = totalSelections ? ((scores[style] / totalSelections) * 100).toFixed(0) : 0;
+                    document.getElementById(`match-${style}`).textContent = percentage;
+                }
+
+                styleName.textContent = styles[resultStyle].name;
+                styleDescription.textContent = styles[resultStyle].description;
+                victoryPointsDisplay.textContent = totalPoints;
+                styleImage.src = styles[resultStyle].image;
+                socialShare.textContent = `Share: I’m a ${styles[resultStyle].share} in NAF’s Style Battle! 🧵 #NAFStyleBattle`;
+
+                recommendationsList.innerHTML = styles[resultStyle].recommendations.map(r => `<li><a href="${r.link}">${r.name}</a></li>`).join('');
+                playlistList.innerHTML = styles[resultStyle].playlist.map(p => `<li><a href="${p.link}" target="_blank">${p.name}</a></li>`).join('');
+                leaderboardBody.innerHTML = leaderboardData.map((l, i) => `<tr><td>${i + 1}</td><td>${l.name}</td><td>${l.points}</td></tr>`).join('');
+
+                pastStyles.push({ style: resultStyle, points: totalPoints, date: new Date().toLocaleString() });
+                localStorage.setItem('pastStyles', JSON.stringify(pastStyles));
+
+                updateAvatar(resultStyle);
+                updateAR(resultStyle);
+
+                resultsSection.classList.add('active');
+                battles.forEach(b => b.classList.remove('active'));
+                if (!isMuted && resultsSound) resultsSound.play();
+                window.scrollTo({ top: resultsSection.offsetTop, behavior: 'smooth' });
+            }
+
+            function updateAvatar(style = 'dapper') {
+                if (!avatarCtx) return;
+                avatarCtx.clearRect(0, 0, avatarCanvas.width, avatarCanvas.height);
+                const img = new Image();
+                img.src = styles[style].avatar;
+                img.onload = () => {
+                    avatarCtx.drawImage(img, 0, 0, avatarCanvas.width, avatarCanvas.height);
+                    const accessory = document.getElementById('avatar-outfit').value;
+                    if (accessory !== 'base') {
+                        const accImg = new Image();
+                        accImg.src = `https://via.placeholder.com/100?text=${accessory}`;
+                        accImg.onload = () => {
+                            avatarCtx.drawImage(accImg, 50, 50, 100, 100);
+                        };
+                    }
+                };
+            }
+
+            function downloadAvatar() {
+                if (!avatarCanvas) return;
+                const link = document.createElement('a');
+                link.download = 'naf-style-avatar.png';
+                link.href = avatarCanvas.toDataURL();
+                link.click();
+            }
+
+            function updateAR(style = 'dapper') {
+                if (!arCtx) return;
+                arCtx.clearRect(0, 0, arCanvas.width, arCanvas.height);
+                const img = new Image();
+                img.src = styles[style].ar;
+                img.onload = () => {
+                    arCtx.save();
+                    arCtx.translate(arCanvas.width / 2, arCanvas.height / 2);
+                    arCtx.rotate(arRotation * Math.PI / 180);
+                    arCtx.fillStyle = arColors[arColorIndex];
+                    arCtx.fillRect(-125, -125, arCanvas.width, arCanvas.height);
+                    arCtx.drawImage(img, -125, -125, arCanvas.width, arCanvas.height);
+                    arCtx.restore();
+                };
+            }
+
+            function rotateAR() {
+                arRotation += 90;
+                updateAR(styleName.textContent.toLowerCase().replace(' ', ''));
+            }
+
+            function changeARColor() {
+                arColorIndex = (arColorIndex + 1) % arColors.length;
+                updateAR(styleName.textContent.toLowerCase().replace(' ', ''));
+            }
+
+            function showMapPopup(id) {
+                mapPopupText.textContent = mapLocations[id];
+                mapPopup.classList.add('active');
+            }
+
+            function closeMapPopup() {
+                mapPopup.classList.remove('active');
+            }
+
+            battles.forEach(battle => {
+                const options = battle.querySelectorAll('.battle-option');
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        console.log('🎉 Pow! Outfit chosen!');
+                        if (!isMuted && selectSound) selectSound.play();
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+
+                        const style = option.dataset.style;
+                        const points = parseInt(option.dataset.points);
+                        scores[style]++;
+                        totalPoints += points;
+                        if (speedMode && parseInt(timerDisplay.textContent.split(': ')[1]) > 5) {
+                            totalPoints += 5; // Bonus for speed
+                        }
+
+                        localStorage.setItem('quizProgress', JSON.stringify({ currentBattle, scores, totalPoints }));
+
+                        clearInterval(timerInterval);
+                        setTimeout(() => {
+                            battle.classList.remove('active');
+                            currentBattle++;
+                            if (currentBattle < battles.length) {
+                                battles[currentBattle].classList.add('active');
+                                updateMeter();
+                                startTimer();
+                            } else {
+                                showResults();
+                            }
+                        }, 500);
+                    });
+                });
+            });
+
+            if (muteToggle) {
+                muteToggle.addEventListener('click', () => {
+                    isMuted = !isMuted;
+                    muteToggle.textContent = isMuted ? '🔇 Unmute' : '🔊 Mute';
+                });
+            }
+
+            if (speedToggle) {
+                speedToggle.addEventListener('click', () => {
+                    speedMode = !speedMode;
+                    speedToggle.textContent = speedMode ? '⚡ Normal Mode' : '⚡ Speed Battle';
+                    if (speedMode && currentBattle < battles.length) startTimer();
+                    else clearInterval(timerInterval);
+                });
+            }
+
+            window.restartBattle = function() {
+                currentBattle = 0;
+                scores = { dapper: 0, vibe: 0, laidback: 0 };
+                totalPoints = 0;
+                battles.forEach(b => b.classList.remove('active'));
+                battles[0].classList.add('active');
+                resultsSection.classList.remove('active');
+                updateMeter();
+                clearInterval(timerInterval);
+                timerDisplay.textContent = '';
+                if (speedMode) startTimer();
+                document.querySelectorAll('.battle-option').forEach(opt => opt.classList.remove('selected'));
+                window.scrollTo({ top: battles[0].offsetTop, behavior: 'smooth' });
+            };
+
+            window.sharePreview = function() {
+                html2canvas(document.getElementById('quiz-results')).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    if (navigator.share) {
+                        const blob = dataURLtoBlob(imgData);
+                        const file = new File([blob], 'naf-style-result.png', { type: 'image/png' });
+                        navigator.share({
+                            files: [file],
+                            text: socialShare.textContent,
+                            title: 'NAF Style Battle Result'
+                        });
+                    } else {
+                        const link = document.createElement('a');
+                        link.download = 'naf-style-result.png';
+                        link.href = imgData;
+                        link.click();
+                    }
+                });
+            };
+
+            function dataURLtoBlob(dataURL) {
+                const arr = dataURL.split(',');
+                const mime = arr[0].match(/:(.*?);/)[1];
+                const bstr = atob(arr[1]);
+                let n = bstr.length;
+                const u8arr = new Uint8Array(n);
+                while (n--) u8arr[n] = bstr.charCodeAt(n);
+                return new Blob([u8arr], { type: mime });
+            }
+
+            window.viewPastStyles = function() {
+                const past = pastStyles.map(s => `${s.style} (${s.points} points, ${s.date})`).join('<br>');
+                alert('Past Styles:\n' + (past || 'No past styles yet!'));
+            };
+
+            // Resume Progress
+            const savedProgress = JSON.parse(localStorage.getItem('quizProgress'));
+            if (savedProgress && savedProgress.currentBattle < battles.length) {
+                if (confirm('Resume your Style Battle?')) {
+                    currentBattle = savedProgress.currentBattle;
+                    scores = savedProgress.scores;
+                    totalPoints = savedProgress.totalPoints;
+                    battles.forEach(b => b.classList.remove('active'));
+                    battles[currentBattle].classList.add('active');
+                    updateMeter();
+                    if (speedMode) startTimer();
+                } else {
+                    localStorage.removeItem('quizProgress');
+                }
+            }
+
+            // Style Map
+            document.querySelectorAll('.style-map path').forEach(path => {
+                path.addEventListener('click', () => showMapPopup(path.id));
+            });
+
+            // Newsletter Form
+            const newsletterForm = document.getElementById('newsletter-form');
+            const formMessage = document.querySelector('.form-message');
+            if (newsletterForm && formMessage) {
+                newsletterForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = newsletterForm.querySelector('input[name="email"]').value;
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                    if (emailRegex.test(email)) {
+                        formMessage.textContent = 'Sweet! You’re now part of the NAF style tribe!';
+                        formMessage.classList.remove('error');
+                        formMessage.classList.add('success');
+                        newsletterForm.reset();
+                        setTimeout(() => {
+                            formMessage.textContent = '';
+                            formMessage.classList.remove('success');
+                        }, 3000);
+                    } else {
+                        formMessage.textContent = 'Oops! Please enter a valid email address.';
+                        formMessage.classList.remove('success');
+                        formMessage.classList.add('error');
+                        setTimeout(() => {
+                            formMessage.textContent = '';
+                            formMessage.classList.remove('error');
+                        }, 3000);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
