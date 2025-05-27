@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NAF Clothings - Home</title>
-    <link rel="preload" href="hero-fashion1.webp" as="image">
-    <link rel="preload" href="hero-fashion2.webp" as="image">
-    <link rel="preload" href="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/chic_casual_set.jpeg" as="image">
-    <link rel="preload" href="hero-fashion4.webp" as="image">
-    <link rel="preload" href="hero-fashion5.webp" as="image">
+    <link rel="preload" href="https://via.placeholder.com/1200x700?text=Embroidered+Kaftan" as="image">
+    <link rel="preload" href="https://via.placeholder.com/1200x700?text=Bold+Senator+Wear" as="image">
+    <link rel="preload" href="https://via.placeholder.com/1200x700?text=Ankara+Kaftan+Set" as="image">
+    <link rel="preload" href="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/vibrant_gown_collection.jpeg" as="image">
+    <link rel="preload" href="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/luxury_outfit_collection.jpeg" as="image">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -110,14 +110,13 @@
             box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo);
             position: relative;
             animation: orbit-glow 10s linear infinite;
-            transition: box-shadow 0.3s ease; /* Transition only for box-shadow */
+            transition: box-shadow 0.3s ease;
         }
         @keyframes orbit-glow {
             0% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
             50% { box-shadow: 0 0 30px var(--glow-neon), 0 0 40px var(--glow-holo); }
             100% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
         }
-        /* Subtle hover effect without scaling */
         .logo-img:hover {
             box-shadow: 0 0 25px var(--glow-neon), 0 0 35px var(--glow-holo);
         }
@@ -326,7 +325,7 @@
         }
         .trends-grid, .showroom-grid, .behind-scenes-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -624,7 +623,7 @@
             }
             .logo { width: 40px; height: 40px; }
             .logo-img:hover {
-                box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); /* Reset to default on mobile */
+                box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo);
             }
             .search-nav {
                 flex: 1;
@@ -825,14 +824,14 @@
     <canvas id="particles" width="412" height="915"></canvas>
     <div class="content-wrapper">
         <header>
-            <div class="top-bar">✨ Discover Our Latest Collections in Lagos! ✨</div>
+            <div class="top-bar">✨ Slay with Our Kaftan & Native Collections in Lagos! ✨</div>
             <div class="main-header">
                 <div class="logo">
                     <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/i_want_a_perfect_logo_for_the.jpeg" alt="NAF Clothings Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/60';">
                 </div>
                 <div class="search-nav">
                     <div class="search-bar">
-                        <input type="text" placeholder="Search our collections...">
+                        <input type="text" placeholder="Search our kaftan collections...">
                     </div>
                     <span class="hamburger">☰</span>
                     <nav>
@@ -858,194 +857,194 @@
                 <div class="hero-carousel">
                     <div class="hero-slide active">
                         <picture>
-                            <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/elegant_dress_collection.jpeg" type="image/webp">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/elegant_dress_collection.jpeg" alt="Elegant Dress Collection" width="1200" height="700">
+                            <source srcset="https://via.placeholder.com/1200x700?text=Embroidered+Kaftan" type="image/webp">
+                            <img src="https://via.placeholder.com/1200x700?text=Embroidered+Kaftan" alt="Embroidered Kaftan Collection" width="1200" height="700">
                         </picture>
                     </div>
                     <div class="hero-slide">
                         <picture>
-                            <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/bold_suit_collection.jpeg" type="image/webp">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/bold_suit_collection.jpeg" alt="Bold Suit Collection" loading="lazy" width="1200" height="700">
+                            <source srcset="https://via.placeholder.com/1200x700?text=Bold+Senator+Wear" type="image/webp">
+                            <img src="https://via.placeholder.com/1200x700?text=Bold+Senator+Wear" alt="Bold Senator Wear Collection" loading="lazy" width="1200" height="700">
                         </picture>
                     </div>
                     <div class="hero-slide">
                         <picture>
-                            <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/chic_casual_set.jpeg" type="image/webp">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/chic_casual_set.jpeg" alt="Casual Chic Collection" loading="lazy" width="1200" height="700">
+                            <source srcset="https://via.placeholder.com/1200x700?text=Ankara+Kaftan+Set" type="image/webp">
+                            <img src="https://via.placeholder.com/1200x700?text=Ankara+Kaftan+Set" alt="Ankara Kaftan Set Collection" loading="lazy" width="1200" height="700">
                         </picture>
                     </div>
                     <div class="hero-slide">
                         <picture>
                             <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/vibrant_gown_collection.jpeg" type="image/webp">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/vibrant_gown_collection.jpeg" alt="Vibrant Gown Collection" loading="lazy" width="1200" height="700">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/vibrant_gown_collection.jpeg" alt="Vibrant Native Gown Collection" loading="lazy" width="1200" height="700">
                         </picture>
                     </div>
                     <div class="hero-slide">
                         <picture>
                             <source srcset="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/luxury_outfit_collection.jpeg" type="image/webp">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/luxury_outfit_collection.jpeg" alt="Luxury Outfit Collection" loading="lazy" width="1200" height="700">
+                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/luxury_outfit_collection.jpeg" alt="Luxury Agbada Collection" loading="lazy" width="1200" height="700">
                         </picture>
                     </div>
                 </div>
                 <div class="hero-content">
-                    <h1>Elevate Your Style</h1>
-                    <p>Discover NAF Clothings’ exclusive collections crafted with elegance, boldness, and innovation in the heart of Lagos. Immerse yourself in a world where fashion meets artistry, designed to turn heads and inspire confidence.</p>
-                    <button onclick="window.location.href='showroom.html'">Explore Showroom</button>
+                    <h1>Own Your Cultural Style</h1>
+                    <p>Discover NAF Clothings’ stunning kaftans, agbada, and native designs crafted in Lagos. Our collections blend Nigerian heritage with modern flair to make you stand out with confidence.</p>
+                    <button onclick="window.location.href='showroom.html#kaftan'">Explore Showroom</button>
                 </div>
             </section>
             <section class="welcome section">
                 <h2>Welcome to NAF Clothings</h2>
-                <p>Based in Lagos, NAF Clothings blends tradition with modern style, creating timeless pieces that celebrate your individuality. Discover our curated collections and let your wardrobe tell your story!</p>
+                <p>From Lagos, NAF Clothings crafts exquisite kaftans, senator wear, and native sets that celebrate Nigerian culture. Our designs empower you to express your unique style with elegance and pride.</p>
             </section>
             <section class="design-philosophy section">
                 <h2>Our Design Philosophy</h2>
-                <p>At NAF Clothings, we believe fashion is an expression of identity. Our designs are inspired by the rich cultural heritage of Nigeria, infused with contemporary trends to create pieces that are both timeless and bold.</p>
+                <p>At NAF Clothings, we weave Nigeria’s rich heritage into every kaftan, agbada, and native set. Our designs fuse traditional craftsmanship with contemporary trends, creating bold, timeless pieces.</p>
             </section>
             <section class="trends-spotlight section">
-                <h2>Fashion Trends Spotlight</h2>
-                <p>Stay ahead of the curve with these trending styles curated by our design team. From vibrant prints to minimalist elegance, here’s what’s defining fashion in 2025.</p>
+                <h2>Kaftan & Native Trends Spotlight</h2>
+                <p>Lead the fashion scene with NAF’s trending kaftan and native styles. Discover what’s defining Nigerian fashion in 2025 with our curated collections.</p>
                 <div class="trends-grid">
                     <div class="trend-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/bold_prints.jpeg" alt="Bold Prints" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Embroidered+Kaftan+Trends" alt="Embroidered Kaftan Trends" loading="lazy">
                         </div>
-                        <h3>Bold Prints</h3>
-                        <p>Make a statement with eye-catching patterns that scream confidence.</p>
-                        <button onclick="window.location.href='showroom.html'">Explore Trends</button>
+                        <h3>Embroidered Kaftan Trends</h3>
+                        <p>Intricate embroidery elevates kaftans for a regal, standout look.</p>
+                        <button onclick="window.location.href='showroom.html#kaftan'">Explore Trends</button>
                     </div>
                     <div class="trend-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/monochrome_elegance.jpeg" alt="Monochrome Elegance" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Ankara+Fusion+Kaftans" alt="Ankara Fusion Kaftans" loading="lazy">
                         </div>
-                        <h3>Monochrome Elegance</h3>
-                        <p>Timeless sophistication with sleek, single-tone designs.</p>
-                        <button onclick="window.location.href='showroom.html'">Explore Trends</button>
+                        <h3>Ankara Fusion Kaftans</h3>
+                        <p>Vibrant Ankara patterns meet modern cuts for bold style.</p>
+                        <button onclick="window.location.href='showroom.html#kaftan'">Explore Trends</button>
                     </div>
                     <div class="trend-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/sustainable_fabrics.jpeg" alt="Sustainable Fabrics" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Traditional+Agbada+Revival" alt="Traditional Agbada Revival" loading="lazy">
                         </div>
-                        <h3>Sustainable Fabrics</h3>
-                        <p>Eco-friendly fashion that looks good and feels great.</p>
-                        <button onclick="window.location.href='showroom.html'">Explore Trends</button>
+                        <h3>Traditional Agbada Revival</h3>
+                        <p>Regal agbada designs with intricate details for iconic elegance.</p>
+                        <button onclick="window.location.href='showroom.html#agbada'">Explore Trends</button>
                     </div>
                 </div>
             </section>
             <section class="behind-scenes section">
-                <h2>Behind the Scenes</h2>
-                <p>Get a glimpse into our creative process, from sketches to runway-ready designs. See how we bring our collections to life with passion and precision.</p>
+                <h2>Behind Our Kaftan Craft</h2>
+                <p>Dive into the artistry behind NAF’s kaftans and native designs. From embroidery to fabric selection, see how we create pieces that celebrate Nigerian heritage.</p>
                 <div class="behind-scenes-grid">
                     <div class="behind-scenes-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/sketching_designs.jpeg" alt="Sketching Designs" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Kaftan+Embroidery" alt="Kaftan Embroidery" loading="lazy">
                         </div>
-                        <h3>Sketching Designs</h3>
-                        <p>Every piece starts with a vision captured on paper by our talented designers.</p>
-                        <button onclick="window.location.href='blog.html'">Learn More</button>
+                        <h3>Kaftan Embroidery</h3>
+                        <p>Skilled artisans hand-embroider kaftans for intricate, luxurious details.</p>
+                        <button onclick="window.location.href='blog.html#kaftan-craft'">Learn More</button>
                     </div>
                     <div class="behind-scenes-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/fabric_selection.jpeg" alt="Fabric Selection" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Native+Fabric+Sourcing" alt="Native Fabric Sourcing" loading="lazy">
                         </div>
-                        <h3>Fabric Selection</h3>
-                        <p>We handpick premium fabrics to ensure quality and comfort in every piece.</p>
-                        <button onclick="window.location.href='blog.html'">Learn More</button>
+                        <h3>Native Fabric Sourcing</h3>
+                        <p>We source premium Aso Oke and Ankara for authentic designs.</p>
+                        <button onclick="window.location.href='blog.html#fabric'">Learn More</button>
                     </div>
                     <div class="behind-scenes-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/runway_prep.jpeg" alt="Runway Prep" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Agbada+Tailoring" alt="Agbada Tailoring" loading="lazy">
                         </div>
-                        <h3>Runway Prep</h3>
-                        <p>Behind-the-scenes action as we prepare for our latest fashion showcase.</p>
-                        <button onclick="window.location.href='blog.html'">Learn More</button>
+                        <h3>Agbada Tailoring</h3>
+                        <p>Precision tailoring brings our regal agbada designs to life.</p>
+                        <button onclick="window.location.href='blog.html#agbada'">Learn More</button>
                     </div>
                 </div>
             </section>
             <section class="showroom-highlight section">
                 <h2>Showroom Highlights</h2>
-                <p>Step into our virtual showroom and explore a curated selection of stunning designs that define the essence of NAF Clothings. Each piece blends tradition with modern flair to elevate your wardrobe.</p>
+                <p>Slay with our latest kaftan collections and iconic Nigerian designs in NAF Clothings’ virtual showroom. From luxurious embroidered kaftans to bold senator wear, each piece is crafted to elevate your style with cultural flair.</p>
                 <div class="showroom-grid">
                     <div class="showroom-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/aso_oke_elegance.jpeg" alt="Aso Oke Elegance" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Embroidered+Kaftan" alt="Embroidered Kaftan" loading="lazy">
                         </div>
-                        <h3>Aso Oke Elegance</h3>
-                        <p>A handwoven masterpiece with vibrant patterns, perfect for cultural celebrations.</p>
-                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                        <h3>Embroidered Kaftan</h3>
+                        <p>A luxurious kaftan with intricate embroidery, perfect for regal occasions.</p>
+                        <button onclick="window.location.href='showroom.html#kaftan'">View in Showroom</button>
                     </div>
                     <div class="showroom-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/tailored_teal_suit.jpeg" alt="Tailored Teal Suit" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Ankara+Kaftan+Set" alt="Ankara Kaftan Set" loading="lazy">
                         </div>
-                        <h3>Tailored Teal Suit</h3>
-                        <p>A sleek, modern suit with a pop of color for the confident trendsetter.</p>
-                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                        <h3>Ankara Fusion Kaftan</h3>
+                        <p>Vibrant patterns in a flowing kaftan, ideal for cultural celebrations.</p>
+                        <button onclick="window.location.href='showroom.html#kaftan'">View in Showroom</button>
                     </div>
                     <div class="showroom-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/chic_casual_set.jpeg" alt="Chic Casual Set" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Modern+Aso+Okean" alt="Modern Aso Oke Kaftan" loading="lazy">
                         </div>
-                        <h3>Chic Casual Set</h3>
-                        <p>Effortless style with a blend of comfort and bold design elements.</p>
-                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                        <h3>Modern Aso Oke Kaftan</h3>
+                        <p>A fusion of traditional Aso Oke with sleek, contemporary cuts.</p>
+                        <button onclick="window.location.href='showroom.html#kaftan'">View in Showroom</button>
                     </div>
                     <div class="showroom-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/vibrant_gown.jpeg" alt="Vibrant Gown" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Tailored+Senator+Wear" alt="Tailored Senator Wear" loading="lazy">
                         </div>
-                        <h3>Vibrant Gown</h3>
-                        <p>A flowing gown with intricate beadwork, ideal for evening elegance.</p>
-                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                        <h3>Tailored Senator Wear</h3>
+                        <p>Sleek and structured, perfect for the modern Nigerian trendsetter.</p>
+                        <button onclick="window.location.href='showroom.html#senator'">View in Showroom</button>
                     </div>
                     <div class="showroom-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/statement_jacket.jpeg" alt="Statement Jacket" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Beaded+Agbada" alt="Beaded Agbada" loading="lazy">
                         </div>
-                        <h3>Statement Jacket</h3>
-                        <p>A bold jacket with unique textures, perfect for making an impression.</p>
-                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                        <h3>Beaded Agbada</h3>
+                        <p>A regal agbada with intricate beadwork for a show-stopping look.</p>
+                        <button onclick="window.location.href='showroom.html#agbada'">View in Showroom</button>
                     </div>
                     <div class="showroom-card">
                         <div class="image-wrapper">
-                            <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/two_piece_skirt_set.jpeg" alt="Two-Piece Skirt Set" loading="lazy">
+                            <img src="https://via.placeholder.com/300?text=Chic+Two-Piece+Native+Set" alt="Chic Two-Piece Native Set" loading="lazy">
                         </div>
-                        <h3>Two-Piece Skirt Set</h3>
-                        <p>A versatile set with a modern twist, blending tradition and trend.</p>
-                        <button onclick="window.location.href='showroom.html'">View in Showroom</button>
+                        <h3>Chic Two-Piece Native Set</h3>
+                        <p>A modern take on traditional attire with bold design elements.</p>
+                        <button onclick="window.location.href='showroom.html#native'">View in Showroom</button>
                     </div>
                 </div>
             </section>
             <section class="customer-spotlight section">
-                <h2>Our Fashion Community</h2>
-                <p class="intro-text">Hear from our vibrant community of style enthusiasts who bring NAF Clothings to life with their unique flair. Join us on our Blog or Contact page to connect and inspire!</p>
+                <h2>Our Kaftan Community</h2>
+                <p class="intro-text">Our style tribe brings NAF’s kaftans and native designs to life. Hear their stories and join the movement on our Blog or Contact page!</p>
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
-                        <p>“The Aso Oke Elegance dress transformed my event into a cultural spectacle—unmatched quality and design!”</p>
+                        <p>“The Embroidered Kaftan made my wedding entrance iconic—pure elegance!”</p>
                         <p class="author"><b>— Funmi, 28</b></p>
                     </div>
                     <div class="testimonial-card">
-                        <p>“The Tailored Teal Suit gave me the confidence to shine at my conference. NAF Clothings is my go-to!”</p>
+                        <p>“The Tailored Senator Wear was a hit at my event. NAF nails cultural style!”</p>
                         <p class="author"><b>— Chidi, 35</b></p>
                     </div>
                     <div class="testimonial-card">
-                        <p>“Wearing the Vibrant Gown made me feel like a star—every detail is perfection!”</p>
+                        <p>“The Beaded Agbada made me feel like royalty—unmatched craftsmanship!”</p>
                         <p class="author"><b>— Amina, 30</b></p>
                     </div>
                 </div>
             </section>
             <section class="cta-section section">
-                <h2>Define Your Look</h2>
-                <p>Step into the world of NAF Clothings and discover pieces that reflect your unique style. Explore our showroom today and let your fashion journey begin with a bold statement!</p>
-                <button onclick="window.location.href='showroom.html'">Explore Now</button>
+                <h2>Define Your Cultural Style</h2>
+                <p>Step into NAF Clothings’ world of kaftans, agbada, and native designs. Explore our showroom to find pieces that celebrate your Nigerian heritage with bold elegance!</p>
+                <button onclick="window.location.href='showroom.html#kaftan'">Explore Now</button>
             </section>
         </main>
 
-        <footer>
+         <footer>
             <div class="footer-content">
                 <div>
                     <h3>NAF Clothings</h3>
                     <p><i class="fas fa-map-marker-alt"></i> 25 Fashion Avenue, Lagos, Nigeria</p>
-                    <p><i class="fas fa-globe"></i> Nationwide Shipping</p>
+                    <p><i class="fas fa-globe"></i> Worldwide Shipping</p>
                     <p><i class="fas fa-phone-alt"></i> +234 810 967 4683</p>
                     <p><i class="fas fa-envelope"></i> style@nafclothings.ng</p>
                     <p><i class="fas fa-clock"></i> Mon-Fri: 9am-6pm, Sat: 10am-4pm (WAT)</p>
@@ -1060,8 +1059,8 @@
                 </div>
                 <div>
                     <h3>Explore More</h3>
+                    <p><a href="showroom.html">Collections</a></p>
                     <p><a href="blog.html">Style Tips</a></p>
-                    <p><a href="showroom.html">Lookbook</a></p>
                     <p><a href="blog.html">Customer Stories</a></p>
                     <p><a href="#newsletter">Newsletter Signup</a></p>
                 </div>
@@ -1101,11 +1100,11 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 5 + 2;
+                this.size = Math.random() * 5 + 1;
                 this.speedX = Math.random() * 2 - 1;
                 this.speedY = Math.random() * 2 - 1;
-                this.color = `hsla(${Math.random() * 360}, 70%, 50%, 0.8)`;
-                this.angle = Math.random() * 360;
+                this.color = `hsla(${Math.random() * 360}, 80%, 60%, 1)`;
+                this.angle = 0;
                 this.spin = Math.random() * 0.1 - 0.05;
             }
             update() {
@@ -1114,7 +1113,7 @@
                 this.angle += this.spin;
                 if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                this.size = Math.max(this.size - 0.01, 2);
+                this.size = Math.max(this.size - 0.01, 0.5);
             }
             draw() {
                 ctx.fillStyle = this.color;
