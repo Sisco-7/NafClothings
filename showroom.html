@@ -188,10 +188,19 @@
             height: 700px;
             overflow: hidden;
             text-align: center;
-            background: linear-gradient(135deg, var(--accent-primary), var(--highlight));
             border-radius: 15px;
             margin: 120px 2rem 3rem;
             padding: 2rem 0;
+        }
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.7;
         }
         .hero-content {
             position: absolute;
@@ -202,6 +211,7 @@
             text-shadow: 0 0 15px var(--accent-secondary);
             width: 90%;
             max-width: 700px;
+            z-index: 1;
         }
         .hero-content h1 {
             font-family: 'Playfair Display', serif;
@@ -291,207 +301,283 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .collection-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .collection-card {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .collection-card:hover {
-            transform: translateY(-15px) rotate(2deg);
-            box-shadow: 0 0 40px var(--accent-secondary);
-        }
-        .collection-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(224, 185, 115, 0.3) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 0;
-        }
-        .collection-card:hover::before {
-            opacity: 1;
-        }
-        .collection-card .image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            margin-bottom: 1rem;
-            z-index: 1;
-        }
-        .collection-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-        .collection-card:hover img {
-            transform: scale(1.1);
-        }
-        .collection-card h3 {
-            font-size: 1.4rem;
-            margin: 1rem 0 0.5rem;
-            color: var(--accent-primary);
-            text-shadow: 0 0 10px var(--accent-secondary);
-            z-index: 1;
-        }
-        .collection-card .meta {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            z-index: 1;
-        }
-        .collection-card p {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            z-index: 1;
-        }
-        .collection-card button.view-details {
-            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
-            color: #FFFFFF;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            cursor: pointer;
-            border-radius: 10px;
-            box-shadow: 0 0 15px var(--accent-secondary);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            z-index: 100;
-            pointer-events: auto;
-        }
-        .collection-card button.view-details:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px var(--accent-secondary);
-        }
-        #collection-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--bg-secondary);
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 0 40px var(--accent-secondary);
-            z-index: 2000;
-        }
-        #collection-modal.active {
-            display: block;
-        }
-        #collection-modal h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--accent-primary);
-            text-shadow: 0 0 10px var(--accent-secondary);
-            margin-bottom: 1rem;
-        }
-        #collection-modal img {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto 1rem;
-            display: block;
-            border-radius: 10px;
-        }
-        #collection-modal .meta {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-        #collection-modal .content {
-            margin: 1rem 0;
-        }
-        #collection-modal .design-notes {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(224, 185, 115, 0.1);
-            border-radius: 10px;
-        }
-        #collection-modal .design-notes h3 {
-            font-size: 1.2rem;
-            color: var(--accent-primary);
-            margin-bottom: 0.5rem;
-        }
-        #collection-modal .design-notes ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            font-size: 1rem;
-            color: var(--text-primary);
-        }
-        #collection-modal .design-notes li {
-            margin-bottom: 0.3rem;
-        }
-        #collection-modal .more-details {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(46, 50, 146, 0.1);
-            border-radius: 10px;
-        }
-        #collection-modal .more-details h3 {
-            font-size: 1.2rem;
-            color: var(--accent-primary);
-            margin-bottom: 0.5rem;
-        }
-        #collection-modal .more-details p {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        #collection-modal .more-details p strong {
-            color: var(--accent-secondary);
-        }
-        #collection-modal .close-modal {
-            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
-            color: #FFFFFF;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            cursor: pointer;
-            display: block;
-            margin: 1rem auto 0;
-            box-shadow: 0 0 15px var(--accent-secondary);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        #collection-modal .close-modal:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px var(--accent-secondary);
-        }
-        .pagination {
-            text-align: center;
-            margin: 2rem 0;
-        }
-        .pagination a {
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            margin: 0 0.5rem;
-            border-radius: 5px;
-            transition: background 0.3s, transform 0.3s;
-        }
-        .pagination a:hover, .pagination a.active {
-            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
-            color: #FFFFFF;
-            transform: scale(1.1);
-        }
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
 
+.collection-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.collection-card:hover {
+    transform: translateY(-15px) rotate(2deg);
+    box-shadow: 0 0 40px var(--accent-secondary);
+}
+
+.collection-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(224, 185, 115, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 0;
+}
+
+.collection-card:hover::before {
+    opacity: 1;
+}
+
+.collection-card .image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Changed from 200px to make images larger */
+    overflow: hidden;
+    margin-bottom: 1rem;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.collection-card img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.collection-card:hover img {
+    transform: scale(1.1);
+}
+
+.collection-card h3 {
+    font-size: 1.4rem;
+    margin: 1rem 0 0.5rem;
+    color: var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-secondary);
+    z-index: 1;
+}
+
+.collection-card .meta {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    z-index: 1;
+}
+
+.collection-card p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    z-index: 1;
+}
+
+.collection-card button.view-details {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    color: #FFFFFF;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 15px var(--accent-secondary);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    z-index: 100;
+    pointer-events: auto;
+}
+
+.collection-card button.view-details:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--accent-secondary);
+}
+
+#collection-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 40px var(--accent-secondary);
+    z-index: 2000;
+}
+
+#collection-modal.active {
+    display: block;
+}
+
+#collection-modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-secondary);
+    margin-bottom: 1rem;
+}
+
+#collection-modal img {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 1rem;
+    display: block;
+    border-radius: 10px;
+}
+
+#collection-modal .meta {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#collection-modal .content {
+    margin: 1rem 0;
+}
+
+#collection-modal .design-notes {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(224, 185, 115, 0.1);
+    border-radius: 10px;
+}
+
+#collection-modal .design-notes h3 {
+    font-size: 1.2rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+#collection-modal .design-notes ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+#collection-modal .design-notes li {
+    margin-bottom: 0.3rem;
+}
+
+#collection-modal .more-details {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(46, 50, 146, 0.1);
+    border-radius: 10px;
+}
+
+#collection-modal .more-details h3 {
+    font-size: 1.2rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+#collection-modal .more-details p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+#collection-modal .more-details p strong {
+    color: var(--accent-secondary);
+}
+
+#collection-modal .close-modal {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    color: #FFFFFF;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin: 1rem auto 0;
+    box-shadow: 0 0 15px var(--accent-secondary);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#collection-modal .close-modal:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--accent-secondary);
+}
+
+.pagination {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.pagination a {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.pagination a:hover, .pagination a.active {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    color: #FFFFFF;
+    transform: scale(1.1);
+}
+
+/* Added Responsive Adjustments */
+@media (max-width: 1200px) {
+    .collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    .collection-card .image-wrapper {
+        height: 280px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+    }
+    .collection-card .image-wrapper {
+        height: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .collection-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .collection-card .image-wrapper {
+        height: 240px;
+    }
+}
+
+@media (max-width: 480px) {
+    .collection-grid {
+        gap: 0.8rem;
+    }
+    .collection-card {
+        padding: 0.8rem;
+    }
+    .collection-card .image-wrapper {
+        height: 200px;
+    }
+}
         footer {
             background: var(--footer-bg);
             padding: 3rem 1rem;
@@ -826,7 +912,7 @@
             <div class="top-bar">✨ Discover NAF Clothings Elegance! ✨</div>
             <div class="main-header">
                 <div class="logo">
-                    <img src="https://s3.us-east-1.amazonaws.com/web.develop/NafClothings/i_want_a_perfect_logo_for_the.jpeg" alt="NAF Clothings Logo" class="logo-img">
+                    <img src="https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/i_want_a_perfect_logo_for_the.jpeg" alt="NAF Clothings Logo" class="logo-img">
                 </div>
                 <div class="search-nav">
                     <div class="search-bar">
@@ -853,6 +939,7 @@
 
         <main>
             <section class="hero">
+                <img src="https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/male_kaftan_elegance_midnight_blue.jpeg" alt="Hero Image">
                 <div class="hero-content">
                     <h1>NAF Clothings Showroom</h1>
                     <p>Explore our exquisite collection of traditional and modern attire.</p>
@@ -992,7 +1079,7 @@
         const collections = {
             'kaftan1': {
                 title: 'Kaftan Elegance - Midnight Blue',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/male_kaftan_elegance_midnight_blue.jpeg',
                 description: 'Flowing kaftan with intricate embroidery in midnight blue.',
                 price: '₦15,000',
                 details: 'Crafted from premium silk, perfect for special occasions.',
@@ -1010,7 +1097,7 @@
             },
             'kaftan2': {
                 title: 'Kaftan Elegance - Gold Accent',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/kaftan_elegance_gold_accent.jpeg',
                 description: 'Elegant kaftan with gold embroidery.',
                 price: '₦16,500',
                 details: 'Silk fabric with gold accents, ideal for festive events.',
@@ -1028,7 +1115,7 @@
             },
             'kaftan3': {
                 title: 'Kaftan Elegance - Emerald Glow',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/male_kaftan_elegance_emerald_glow.jpeg',
                 description: 'Vibrant emerald kaftan with subtle patterns.',
                 price: '₦14,000',
                 details: 'Lightweight fabric, perfect for warm weather.',
@@ -1046,7 +1133,7 @@
             },
             'kaftan4': {
                 title: 'Kaftan Elegance - Cream Classic',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/male_kaftan_elegance_cream_classic.jpeg',
                 description: 'Classic cream kaftan with minimal design.',
                 price: '₦13,500',
                 details: 'Cotton-silk blend for a timeless look.',
@@ -1064,7 +1151,7 @@
             },
             'agbada1': {
                 title: 'Agbada Royal - Sapphire Majesty',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/agbada_royal_sapphire_majesty_on_a_good.jpeg',
                 description: 'Regal agbada with bold sapphire patterns.',
                 price: '₦25,000',
                 details: 'Made with luxurious brocade, ideal for celebrations.',
@@ -1082,7 +1169,7 @@
             },
             'agbada2': {
                 title: 'Agbada Royal - Crimson Pride',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/agbada_royal_crimson_pride.jpeg',
                 description: 'Crimson agbada with intricate stitching.',
                 price: '₦26,000',
                 details: 'Premium fabric for a striking appearance.',
@@ -1100,7 +1187,7 @@
             },
             'agbada3': {
                 title: 'Agbada Royal - Ebony Luxe',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/agbada_royal_ebony_luxe_with_a_good.jpeg',
                 description: 'Ebony agbada with gold embroidery.',
                 price: '₦24,500',
                 details: 'Crafted for royalty, perfect for ceremonies.',
@@ -1118,7 +1205,7 @@
             },
             'agbada4': {
                 title: 'Agbada Royal - Ivory Elegance',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/agbada_royal_ivory_elegance.jpeg',
                 description: 'Ivory agbada with subtle patterns.',
                 price: '₦23,000',
                 details: 'Lightweight brocade for a refined look.',
@@ -1136,7 +1223,7 @@
             },
             'shirttrouser1': {
                 title: 'Shirt Trouser Chic - Teal Modern',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/tailored_teal_suit.jpeg',
                 description: 'Stylish teal shirt and trouser combo.',
                 price: '₦12,000',
                 details: 'Tailored for a modern, everyday look.',
@@ -1154,7 +1241,7 @@
             },
             'shirttrouser2': {
                 title: 'Shirt Trouser Chic - Monochrome',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/shirt_trouser_chic_monochrome.jpeg',
                 description: 'Monochrome shirt and trouser set.',
                 price: '₦11,500',
                 details: 'Sleek design for professional settings.',
@@ -1172,7 +1259,7 @@
             },
             'shirttrouser3': {
                 title: 'Shirt Trouser Chic - Navy Classic',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/shirt_trouser_chic_navy_classic.jpeg',
                 description: 'Navy shirt and trouser with a classic fit.',
                 price: '₦12,500',
                 details: 'Comfortable fabric for all-day wear.',
@@ -1190,7 +1277,7 @@
             },
             'shirttrouser4': {
                 title: 'Shirt Trouser Chic - Olive Casual',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/shirt_trouser_chic_olive_casual.jpeg',
                 description: 'Olive green casual shirt and trouser.',
                 price: '₦11,000',
                 details: 'Relaxed fit for casual outings.',
@@ -1208,7 +1295,7 @@
             },
             'asofi1': {
                 title: 'Aso Ofi Vibrant - Coral Bliss',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/aso_ofi_vibrant_gold_weave.jpeg',
                 description: 'Vibrant coral aso ofi with rich colors.',
                 price: '₦18,000',
                 details: 'Handwoven with traditional Nigerian flair.',
@@ -1226,7 +1313,7 @@
             },
             'asofi2': {
                 title: 'Aso Ofi Vibrant - Indigo Charm',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/aso_ofi_vibrant_indigo_charm.jpeg',
                 description: 'Indigo aso ofi with intricate patterns.',
                 price: '₦17,500',
                 details: 'Perfect for cultural celebrations.',
@@ -1244,7 +1331,7 @@
             },
             'asofi3': {
                 title: 'Aso Ofi Vibrant - Gold Weave',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/aso_ofi__gold_weave.jpeg',
                 description: 'Gold aso ofi with elegant weaves.',
                 price: '₦19,000',
                 details: 'Luxurious fabric for special occasions.',
@@ -1262,7 +1349,7 @@
             },
             'urbanvintage1': {
                 title: 'Urban Vintage - Retro Denim',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/urban_vintage_retro_denim.jpeg',
                 description: 'Vintage-inspired denim urban wear.',
                 price: '₦10,000',
                 details: 'Blends retro styles with contemporary cuts.',
@@ -1280,7 +1367,7 @@
             },
             'urbanvintage2': {
                 title: 'Urban Vintage - Graphic Tee',
-                image: 'https://via.placeholder.com/300',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/Naf-Clothings-Home/NafClothings/urban_vintage_graphic_tee.jpeg',
                 description: 'Graphic tee with vintage prints.',
                 price: '₦8,500',
                 details: 'Soft cotton for a casual vibe.',
@@ -1314,42 +1401,9 @@
                     styling: 'Wear over a hoodie for a layered street look'
                 }
             },
-            'caps1': {
-                title: 'Stylish Caps - Embroidered Black',
-                image: 'https://via.placeholder.com/300',
-                description: 'Black cap with embroidered logo.',
-                price: '₦2,500',
-                details: 'Designed for comfort and style.',
-                designNotes: [
-                    'Sleek black with embroidered logo.',
-                    'Adjustable strap for a perfect fit.',
-                    'Cotton fabric for breathability.'
-                ],
-                moreDetails: {
-                    material: '100% Cotton',
-                    sizing: 'One size (adjustable strap)',
-                    care: 'Hand wash in cold water; air dry',
-                    styling: 'Pairs well with casual urban wear'
-                }
-            },
-            'caps2': {
-                title: 'Stylish Caps - Beaded Traditional',
-                image: 'https://via.placeholder.com/300',
-                description: 'Traditional cap with beaded design.',
-                price: '₦3,000',
-                details: 'Pairs well with agbada or kaftan.',
-                designNotes: [
-                    'Traditional design with beaded accents.',
-                    'Rich colors for cultural appeal.',
-                    'Structured shape for a polished look.'
-                ],
-                moreDetails: {
-                    material: '80% Cotton, 20% Beaded Accents',
-                    sizing: 'One size (fits most)',
-                    care: 'Spot clean to preserve beads; avoid soaking',
-                    styling: 'Perfect match for traditional agbada outfits'
-                }
-            }
+            
+           
+            
         };
 
         let currentPage = 1;
